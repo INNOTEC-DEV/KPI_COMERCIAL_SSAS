@@ -1,0 +1,3663 @@
+{
+  "name": "SemanticModel",
+  "compatibilityLevel": 1200,
+  "model": {
+    "name": "Indicadores Inventario",
+    "culture": "en-US",
+    "dataSources": [
+      {
+        "name": "SqlServer .bi DWH",
+        "connectionString": "Provider=SQLNCLI11;Data Source=.;Integrated Security=SSPI;Initial Catalog=DWH;Persist Security Info=false",
+        "impersonationMode": "impersonateServiceAccount",
+        "annotations": [
+          {
+            "name": "ConnectionEditUISource",
+            "value": "SqlServer"
+          }
+        ]
+      }
+    ],
+    "tables": [
+      {
+        "name": "Indicadores",
+        "columns": [
+          {
+            "name": "1.1 - Año",
+            "dataType": "string",
+            "sourceColumn": "ANIO",
+            "sourceProviderType": "Integer"
+          },
+          {
+            "name": "1.2 - Mes",
+            "dataType": "string",
+            "sourceColumn": "MES",
+            "sourceProviderType": "WChar"
+          },
+          {
+            "name": "1.3 - Día",
+            "dataType": "string",
+            "sourceColumn": "DIA",
+            "sourceProviderType": "WChar"
+          },
+          {
+            "name": "2.1 - Indicador",
+            "dataType": "string",
+            "sourceColumn": "INDICADOR",
+            "sourceProviderType": "Char"
+          },
+          {
+            "name": "3.1 - Compañía",
+            "dataType": "string",
+            "sourceColumn": "COMPANIA",
+            "sourceProviderType": "Char"
+          },
+          {
+            "name": "3.2 - Cadena",
+            "dataType": "string",
+            "sourceColumn": "CADENA",
+            "sourceProviderType": "Char"
+          },
+          {
+            "name": "3.4 - Código Centro",
+            "dataType": "string",
+            "sourceColumn": "COD_CENTRO_COSTO",
+            "sourceProviderType": "Char"
+          },
+          {
+            "name": "3.5 - Centro",
+            "dataType": "string",
+            "sourceColumn": "CENTRO",
+            "sourceProviderType": "Char"
+          },
+          {
+            "name": "3.3 - Tienda",
+            "dataType": "string",
+            "sourceColumn": "TIENDA",
+            "sourceProviderType": "Char"
+          },
+          {
+            "name": "5.1 - Clase Artículo",
+            "dataType": "string",
+            "sourceColumn": "DES_CLASE_ARTICULO",
+            "sourceProviderType": "Char"
+          },
+          {
+            "name": "5.2 - Categoría Artículo",
+            "dataType": "string",
+            "sourceColumn": "DES_CATEGORIA_ARTICULO",
+            "sourceProviderType": "Char"
+          },
+          {
+            "name": "5.3 - Segmento Artículo",
+            "dataType": "string",
+            "sourceColumn": "DES_SEGMENTO_ARTICULO",
+            "sourceProviderType": "Char"
+          },
+          {
+            "name": "6.1 - Clasificación",
+            "dataType": "string",
+            "sourceColumn": "CLASIFICACION",
+            "sourceProviderType": "Char"
+          },
+          {
+            "name": "7.1 - Tipo",
+            "dataType": "string",
+            "sourceColumn": "TIPO",
+            "sourceProviderType": "Char"
+          },
+          {
+            "name": "8.1 - Mes Facturación Pendiente",
+            "dataType": "string",
+            "sourceColumn": "FECHA_FACTURACION_PENDIENTE",
+            "sourceProviderType": "WChar"
+          },
+          {
+            "name": "9.1 - Fórmula Porcentaje",
+            "dataType": "string",
+            "sourceColumn": "FORMULA_PORCENTAJE",
+            "sourceProviderType": "Char"
+          },
+          {
+            "name": "Unidades",
+            "dataType": "double",
+            "isHidden": true,
+            "sourceColumn": "UNIDADES",
+            "formatString": "0.0000000000",
+            "sourceProviderType": "Integer"
+          },
+          {
+            "name": "Valor USD",
+            "dataType": "double",
+            "isHidden": true,
+            "sourceColumn": "VALOR_USD",
+            "formatString": "#,0.00",
+            "sourceProviderType": "Numeric"
+          },
+          {
+            "name": "Valor Colones",
+            "dataType": "double",
+            "isHidden": true,
+            "sourceColumn": "VALOR",
+            "formatString": "#,0.00",
+            "sourceProviderType": "Numeric"
+          },
+          {
+            "name": "Insumo para porcentaje 1",
+            "dataType": "double",
+            "isHidden": true,
+            "sourceColumn": "INSUMO_PORCENTAJE_1",
+            "formatString": "#,0.00",
+            "sourceProviderType": "Numeric"
+          },
+          {
+            "name": "Insumo para porcentaje 2",
+            "dataType": "double",
+            "isHidden": true,
+            "sourceColumn": "INSUMO_PORCENTAJE_2",
+            "formatString": "#,0.00",
+            "sourceProviderType": "Numeric"
+          },
+          {
+            "name": "Insumo para porcentaje 3",
+            "dataType": "double",
+            "isHidden": true,
+            "sourceColumn": "INSUMO_PORCENTAJE_3",
+            "formatString": "#,0.00",
+            "sourceProviderType": "Numeric"
+          },
+          {
+            "name": "9.2 - Tipo Bodega",
+            "dataType": "string",
+            "sourceColumn": "DES_TIPO_BODEGA"
+          },
+          {
+            "name": "4.1 - Jefe Zona",
+            "dataType": "string",
+            "sourceColumn": "JEFE_ZONA"
+          }
+        ],
+        "partitions": [
+          {
+            "name": "VW_KPI_INVENTARIOS",
+            "dataView": "full",
+            "source": {
+              "type": "query",
+              "query": " SELECT [dbo].[VW_KPI_INVENTARIOS].* FROM [dbo].[VW_KPI_INVENTARIOS] ",
+              "dataSource": "SqlServer .bi DWH"
+            }
+          }
+        ],
+        "measures": [
+          {
+            "name": "0.1 Unidades",
+            "expression": "IF(SUM([Unidades]) <> 0,SUM([Unidades]),BLANK())",
+            "formatString": "#,0"
+          },
+          {
+            "name": "0.3 Valor USD",
+            "expression": "IF(SUM([Valor USD])<>0,SUM([Valor USD]),BLANK())",
+            "formatString": "#,0.00"
+          },
+          {
+            "name": "0.2 Valor Colones",
+            "expression": "IF(SUM([Valor Colones])<>0,SUM([Valor Colones]),BLANK())",
+            "formatString": "#,0.00"
+          },
+          {
+            "name": "0.4 Insumo para porcentaje 1",
+            "expression": "IF(SUM([Insumo para porcentaje 1])<>0,SUM([Insumo para porcentaje 1]),BLANK())",
+            "formatString": "#,0.00"
+          },
+          {
+            "name": "0.5 Insumo para porcentaje 2",
+            "expression": "IF(SUM([Insumo para porcentaje 2])<>0,SUM([Insumo para porcentaje 2]),BLANK())",
+            "formatString": "#,0.00"
+          },
+          {
+            "name": "0.6 Insumo para porcentaje 3",
+            "expression": "IF(SUM([Insumo para porcentaje 3])<>0,SUM([Insumo para porcentaje 3]),BLANK())",
+            "formatString": "#,0.00"
+          }
+        ],
+        "annotations": [
+          {
+            "name": "_TM_ExtProp_QueryDefinition",
+            "value": "SELECT [dbo].[VW_KPI_INVENTARIOS].* FROM [dbo].[VW_KPI_INVENTARIOS]"
+          },
+          {
+            "name": "_TM_ExtProp_DbTableName",
+            "value": "VW_KPI_INVENTARIOS"
+          },
+          {
+            "name": "_TM_ExtProp_DbSchemaName",
+            "value": "dbo"
+          },
+          {
+            "name": "QueryEditorSerialization",
+            "value": "<?xml version=\"1.0\" encoding=\"UTF-16\"?><Gemini xmlns=\"QueryEditorSerialization\"><AnnotationContent><![CDATA[<RSQueryCommandText>SELECT [dbo].[VW_KPI_INVENTARIOS].* FROM [dbo].[VW_KPI_INVENTARIOS]</RSQueryCommandText><RSQueryCommandType>Text</RSQueryCommandType><RSQueryDesignState></RSQueryDesignState>]]></AnnotationContent></Gemini>"
+          }
+        ]
+      }
+    ],
+    "roles": [
+      {
+        "name": "JZ_Pablo_Jimenez",
+        "modelPermission": "read",
+        "members": [
+          {
+            "memberName": "UNICOMER\\pablo_jimenez",
+            "memberId": "S-1-5-21-1294218654-552819727-359541606-31888"
+          }
+        ],
+        "tablePermissions": [
+          {
+            "name": "Indicadores",
+            "filterExpression": "Indicadores[4.1 - Jefe Zona] = \"JOSE PABLO JIMENEZ\""
+          }
+        ]
+      },
+      {
+        "name": "JZ_William_Lopez",
+        "modelPermission": "read",
+        "members": [
+          {
+            "memberName": "UNICOMER\\willianm_lopez",
+            "memberId": "S-1-5-21-1294218654-552819727-359541606-20839"
+          },
+          {
+            "memberName": "UNICOMER\\edelman_viquez",
+            "memberId": "S-1-5-21-1294218654-552819727-359541606-90186"
+          }
+        ],
+        "tablePermissions": [
+          {
+            "name": "Indicadores",
+            "filterExpression": "Indicadores[4.1 - Jefe Zona] = \"WILLIAM LOPEZ\""
+          }
+        ]
+      },
+      {
+        "name": "JZ_Carlos_Pascua",
+        "modelPermission": "read",
+        "members": [
+          {
+            "memberName": "UNICOMER\\carlos_pascua",
+            "memberId": "S-1-5-21-1294218654-552819727-359541606-26057"
+          }
+        ],
+        "tablePermissions": [
+          {
+            "name": "Indicadores",
+            "filterExpression": "Indicadores[4.1 - Jefe Zona] = \"CARLOS PASCUA\""
+          }
+        ]
+      },
+      {
+        "name": "JZ_Juan_Madrigal",
+        "modelPermission": "read",
+        "members": [
+          {
+            "memberName": "UNICOMER\\juan_madrigal",
+            "memberId": "S-1-5-21-1294218654-552819727-359541606-19168"
+          }
+        ],
+        "tablePermissions": [
+          {
+            "name": "Indicadores",
+            "filterExpression": "Indicadores[4.1 - Jefe Zona] = \"JUAN MADRIGAL\""
+          }
+        ]
+      },
+      {
+        "name": "JZ_Luis_Campos",
+        "modelPermission": "read",
+        "members": [
+          {
+            "memberName": "UNICOMER\\luis_campos",
+            "memberId": "S-1-5-21-1294218654-552819727-359541606-20843"
+          }
+        ],
+        "tablePermissions": [
+          {
+            "name": "Indicadores",
+            "filterExpression": "Indicadores[4.1 - Jefe Zona] = \"LUIS CAMPOS\""
+          }
+        ]
+      },
+      {
+        "name": "JZ_Gabriel_Hernandez",
+        "modelPermission": "read",
+        "members": [
+          {
+            "memberName": "UNICOMER\\gabriel_porras",
+            "memberId": "S-1-5-21-1294218654-552819727-359541606-46029"
+          }
+        ],
+        "tablePermissions": [
+          {
+            "name": "Indicadores",
+            "filterExpression": "Indicadores[4.1 - Jefe Zona] = \"GABRIEL HERNANDEZ\""
+          }
+        ]
+      },
+      {
+        "name": "JZ_Oscar_Murillo",
+        "modelPermission": "read",
+        "members": [
+          {
+            "memberName": "UNICOMER\\oscar_murillo",
+            "memberId": "S-1-5-21-1294218654-552819727-359541606-20842"
+          }
+        ],
+        "tablePermissions": [
+          {
+            "name": "Indicadores",
+            "filterExpression": "Indicadores[4.1 - Jefe Zona] = \"OSCAR MURILLO\""
+          }
+        ]
+      },
+      {
+        "name": "JZ_Rolando_Ocampo",
+        "modelPermission": "read",
+        "members": [
+          {
+            "memberName": "UNICOMER\\rolando_ocampo",
+            "memberId": "S-1-5-21-1294218654-552819727-359541606-20844"
+          }
+        ],
+        "tablePermissions": [
+          {
+            "name": "Indicadores",
+            "filterExpression": "Indicadores[4.1 - Jefe Zona] = \"ROLANDO OCAMPO\""
+          }
+        ]
+      },
+      {
+        "name": "JZ_Ronald_Guzman",
+        "modelPermission": "read",
+        "members": [
+          {
+            "memberName": "UNICOMER\\ronald_guzman",
+            "memberId": "S-1-5-21-1294218654-552819727-359541606-20838"
+          }
+        ],
+        "tablePermissions": [
+          {
+            "name": "Indicadores",
+            "filterExpression": "Indicadores[4.1 - Jefe Zona] = \"RONALD GUZMAN\""
+          }
+        ]
+      },
+      {
+        "name": "Inventario_General",
+        "modelPermission": "read",
+        "members": [
+          {
+            "memberName": "UNICOMER\\brayan_zamora",
+            "memberId": "S-1-5-21-1294218654-552819727-359541606-49893"
+          },
+          {
+            "memberName": "UNICOMER\\william_marin",
+            "memberId": "S-1-5-21-1294218654-552819727-359541606-62836"
+          },
+          {
+            "memberName": "UNICOMER\\monica_vargas",
+            "memberId": "S-1-5-21-1294218654-552819727-359541606-78782"
+          },
+          {
+            "memberName": "UNICOMER\\daniela_villalobos",
+            "memberId": "S-1-5-21-1294218654-552819727-359541606-89833"
+          },
+          {
+            "memberName": "UNICOMER\\lineth_cerdas",
+            "memberId": "S-1-5-21-1294218654-552819727-359541606-80808"
+          },
+          {
+            "memberName": "UNICOMER\\claudiam_soto",
+            "memberId": "S-1-5-21-1294218654-552819727-359541606-92471"
+          },
+          {
+            "memberName": "UNICOMER\\maureen_campos",
+            "memberId": "S-1-5-21-1294218654-552819727-359541606-93677"
+          },
+          {
+            "memberName": "UNICOMER\\axel_acuna",
+            "memberId": "S-1-5-21-1294218654-552819727-359541606-37969"
+          },
+          {
+            "memberName": "UNICOMER\\nelson_hernandez",
+            "memberId": "S-1-5-21-1294218654-552819727-359541606-3766"
+          },
+          {
+            "memberName": "UNICOMER\\farlen_aguilar",
+            "memberId": "S-1-5-21-1294218654-552819727-359541606-19173"
+          },
+          {
+            "memberName": "UNICOMER\\alejandro_garcia",
+            "memberId": "S-1-5-21-1294218654-552819727-359541606-39205"
+          },
+          {
+            "memberName": "UNICOMER\\merelyn_mora",
+            "memberId": "S-1-5-21-1294218654-552819727-359541606-39370"
+          },
+          {
+            "memberName": "UNICOMER\\donal_herrera",
+            "memberId": "S-1-5-21-1294218654-552819727-359541606-27525"
+          },
+          {
+            "memberName": "UNICOMER\\kristel_ugalde",
+            "memberId": "S-1-5-21-1294218654-552819727-359541606-62663"
+          },
+          {
+            "memberName": "UNICOMER\\melissa_alfaro",
+            "memberId": "S-1-5-21-1294218654-552819727-359541606-49809"
+          },
+          {
+            "memberName": "UNICOMER\\dania_montero",
+            "memberId": "S-1-5-21-1294218654-552819727-359541606-104828"
+          },
+          {
+            "memberName": "UNICOMER\\roy_cespedes",
+            "memberId": "S-1-5-21-1294218654-552819727-359541606-104746"
+          },
+          {
+            "memberName": "UNICOMER\\Fallas_juliana",
+            "memberId": "S-1-5-21-1294218654-552819727-359541606-105829"
+          },
+          {
+            "memberName": "UNICOMER\\stefani_vega",
+            "memberId": "S-1-5-21-1294218654-552819727-359541606-105832"
+          },
+          {
+            "memberName": "UNICOMER\\lizbeth_barrantes",
+            "memberId": "S-1-5-21-1294218654-552819727-359541606-100566"
+          },
+          {
+            "memberName": "UNICOMER\\stanley_aguilera",
+            "memberId": "S-1-5-21-1294218654-552819727-359541606-98726"
+          }
+        ]
+      },
+      {
+        "name": "Gerencial",
+        "modelPermission": "read",
+        "members": [
+          {
+            "memberName": "UNICOMER\\luis_miranda",
+            "memberId": "S-1-5-21-1294218654-552819727-359541606-15616"
+          },
+          {
+            "memberName": "UNICOMER\\bernardo_fernandez",
+            "memberId": "S-1-5-21-1294218654-552819727-359541606-14243"
+          },
+          {
+            "memberName": "UNICOMER\\josel_rodriguez",
+            "memberId": "S-1-5-21-1294218654-552819727-359541606-14248"
+          },
+          {
+            "memberName": "UNICOMER\\gilberto_rojas",
+            "memberId": "S-1-5-21-1294218654-552819727-359541606-14247"
+          },
+          {
+            "memberName": "UNICOMER\\gerson_araya",
+            "memberId": "S-1-5-21-1294218654-552819727-359541606-20836"
+          },
+          {
+            "memberName": "UNICOMER\\enrique_rojas",
+            "memberId": "S-1-5-21-1294218654-552819727-359541606-38923"
+          },
+          {
+            "memberName": "UNICOMER\\alejandra_quiros",
+            "memberId": "S-1-5-21-1294218654-552819727-359541606-32967"
+          },
+          {
+            "memberName": "UNICOMER\\maycol_oviedo",
+            "memberId": "S-1-5-21-1294218654-552819727-359541606-20825"
+          },
+          {
+            "memberName": "UNICOMER\\jorge_arce",
+            "memberId": "S-1-5-21-1294218654-552819727-359541606-20933"
+          },
+          {
+            "memberName": "UNICOMER\\eliseo_araya",
+            "memberId": "S-1-5-21-1294218654-552819727-359541606-25860"
+          },
+          {
+            "memberName": "UNICOMER\\donal_herrera",
+            "memberId": "S-1-5-21-1294218654-552819727-359541606-27525"
+          },
+          {
+            "memberName": "UNICOMER\\guillermo_destefanis",
+            "memberId": "S-1-5-21-1294218654-552819727-359541606-92014"
+          },
+          {
+            "memberName": "UNICOMER\\argenis_cordero",
+            "memberId": "S-1-5-21-1294218654-552819727-359541606-37549"
+          },
+          {
+            "memberName": "UNICOMER\\mauricio_montoya",
+            "memberId": "S-1-5-21-1294218654-552819727-359541606-83504"
+          },
+          {
+            "memberName": "UNICOMER\\alvaro_piedrahita",
+            "memberId": "S-1-5-21-1294218654-552819727-359541606-100430"
+          },
+          {
+            "memberName": "UNICOMER\\alvaro_mirault",
+            "memberId": "S-1-5-21-1294218654-552819727-359541606-20977"
+          },
+          {
+            "memberName": "UNICOMER\\daniela_trombatore",
+            "memberId": "S-1-5-21-1294218654-552819727-359541606-101166"
+          },
+          {
+            "memberName": "UNICOMER\\monica_vargas",
+            "memberId": "S-1-5-21-1294218654-552819727-359541606-78782"
+          },
+          {
+            "memberName": "UNICOMER\\cristopher_perez",
+            "memberId": "S-1-5-21-1294218654-552819727-359541606-96918"
+          },
+          {
+            "memberName": "UNICOMER\\juan_urbina",
+            "memberId": "S-1-5-21-1294218654-552819727-359541606-20852"
+          }
+        ]
+      },
+      {
+        "name": "Contabilidad",
+        "modelPermission": "read",
+        "members": [
+          {
+            "memberName": "UNICOMER\\cristhian_reyes",
+            "memberId": "S-1-5-21-1294218654-552819727-359541606-15186"
+          },
+          {
+            "memberName": "UNICOMER\\maria_trejos",
+            "memberId": "S-1-5-21-1294218654-552819727-359541606-51020"
+          }
+        ]
+      },
+      {
+        "name": "Administracion_002",
+        "modelPermission": "read",
+        "members": [
+          {
+            "memberName": "UNICOMER\\admon_002",
+            "memberId": "S-1-5-21-1294218654-552819727-359541606-17485"
+          }
+        ],
+        "tablePermissions": [
+          {
+            "name": "Indicadores",
+            "filterExpression": "Indicadores[3.3 - Tienda] = \"002 - ALAJUEL-TECO\""
+          }
+        ]
+      },
+      {
+        "name": "Administracion_003",
+        "modelPermission": "read",
+        "members": [
+          {
+            "memberName": "UNICOMER\\admon_003",
+            "memberId": "S-1-5-21-1294218654-552819727-359541606-17490"
+          }
+        ],
+        "tablePermissions": [
+          {
+            "name": "Indicadores",
+            "filterExpression": "Indicadores[3.3 - Tienda] = \"003 - CARTAG-FEIS\""
+          }
+        ]
+      },
+      {
+        "name": "Administracion_004",
+        "modelPermission": "read",
+        "members": [
+          {
+            "memberName": "UNICOMER\\admon_004",
+            "memberId": "S-1-5-21-1294218654-552819727-359541606-17506"
+          }
+        ],
+        "tablePermissions": [
+          {
+            "name": "Indicadores",
+            "filterExpression": "Indicadores[3.3 - Tienda] = \"004 - ALAJUEL-PG\""
+          }
+        ]
+      },
+      {
+        "name": "Administracion_005",
+        "modelPermission": "read",
+        "members": [
+          {
+            "memberName": "UNICOMER\\admon_005",
+            "memberId": "S-1-5-21-1294218654-552819727-359541606-17516"
+          }
+        ],
+        "tablePermissions": [
+          {
+            "name": "Indicadores",
+            "filterExpression": "Indicadores[3.3 - Tienda] = \"005 - LIMON-BOULEV\""
+          }
+        ]
+      },
+      {
+        "name": "Administracion_006",
+        "modelPermission": "read",
+        "members": [
+          {
+            "memberName": "UNICOMER\\admon_005",
+            "memberId": "S-1-5-21-1294218654-552819727-359541606-17516"
+          }
+        ],
+        "tablePermissions": [
+          {
+            "name": "Indicadores",
+            "filterExpression": "Indicadores[3.3 - Tienda] = \"006 - SJOSE-MORAZ\""
+          }
+        ]
+      },
+      {
+        "name": "Administracion_007",
+        "modelPermission": "read",
+        "members": [
+          {
+            "memberName": "UNICOMER\\admon_007",
+            "memberId": "S-1-5-21-1294218654-552819727-359541606-23602"
+          }
+        ],
+        "tablePermissions": [
+          {
+            "name": "Indicadores",
+            "filterExpression": "Indicadores[3.3 - Tienda] = \"007 - GUADALUPE\""
+          }
+        ]
+      },
+      {
+        "name": "Administracion_008",
+        "modelPermission": "read",
+        "members": [
+          {
+            "memberName": "UNICOMER\\admon_008",
+            "memberId": "S-1-5-21-1294218654-552819727-359541606-17553"
+          }
+        ],
+        "tablePermissions": [
+          {
+            "name": "Indicadores",
+            "filterExpression": "Indicadores[3.3 - Tienda] = \"008 - SCARLOS AV C\""
+          }
+        ]
+      },
+      {
+        "name": "Administracion_010",
+        "modelPermission": "read",
+        "members": [
+          {
+            "memberName": "UNICOMER\\admon_010",
+            "memberId": "S-1-5-21-1294218654-552819727-359541606-17570"
+          }
+        ],
+        "tablePermissions": [
+          {
+            "name": "Indicadores",
+            "filterExpression": "Indicadores[3.3 - Tienda] = \"010 - ALAJUEL-CTRL\""
+          }
+        ]
+      },
+      {
+        "name": "Administracion_011",
+        "modelPermission": "read",
+        "members": [
+          {
+            "memberName": "UNICOMER\\admon_011",
+            "memberId": "S-1-5-21-1294218654-552819727-359541606-17856"
+          }
+        ],
+        "tablePermissions": [
+          {
+            "name": "Indicadores",
+            "filterExpression": "Indicadores[3.3 - Tienda] = \"011 - PUNTARENAS\""
+          }
+        ]
+      },
+      {
+        "name": "Administracion_012",
+        "modelPermission": "read",
+        "members": [
+          {
+            "memberName": "UNICOMER\\admon_012",
+            "memberId": "S-1-5-21-1294218654-552819727-359541606-17870"
+          }
+        ],
+        "tablePermissions": [
+          {
+            "name": "Indicadores",
+            "filterExpression": "Indicadores[3.3 - Tienda] = \"012 - S.ISIDRO-PAR\""
+          }
+        ]
+      },
+      {
+        "name": "Administracion_013",
+        "modelPermission": "read",
+        "members": [
+          {
+            "memberName": "UNICOMER\\admon_013",
+            "memberId": "S-1-5-21-1294218654-552819727-359541606-17883"
+          }
+        ],
+        "tablePermissions": [
+          {
+            "name": "Indicadores",
+            "filterExpression": "Indicadores[3.3 - Tienda] = \"013 - S.ISIDRO-EST\""
+          }
+        ]
+      },
+      {
+        "name": "Administracion_015",
+        "modelPermission": "read",
+        "members": [
+          {
+            "memberName": "UNICOMER\\admon_015",
+            "memberId": "S-1-5-21-1294218654-552819727-359541606-17907"
+          }
+        ],
+        "tablePermissions": [
+          {
+            "name": "Indicadores",
+            "filterExpression": "Indicadores[3.3 - Tienda] = \"015 - TURRIAL-CTR\""
+          }
+        ]
+      },
+      {
+        "name": "Administracion_016",
+        "modelPermission": "read",
+        "members": [
+          {
+            "memberName": "UNICOMER\\admon_016",
+            "memberId": "S-1-5-21-1294218654-552819727-359541606-17921"
+          }
+        ],
+        "tablePermissions": [
+          {
+            "name": "Indicadores",
+            "filterExpression": "Indicadores[3.3 - Tienda] = \"016 - RIO FRIO\""
+          }
+        ]
+      },
+      {
+        "name": "Administracion_018",
+        "modelPermission": "read",
+        "members": [
+          {
+            "memberName": "UNICOMER\\admon_018",
+            "memberId": "S-1-5-21-1294218654-552819727-359541606-17931"
+          }
+        ],
+        "tablePermissions": [
+          {
+            "name": "Indicadores",
+            "filterExpression": "Indicadores[3.3 - Tienda] = \"018 - OROTINA\""
+          }
+        ]
+      },
+      {
+        "name": "Administracion_019",
+        "modelPermission": "read",
+        "members": [
+          {
+            "memberName": "UNICOMER\\admon_019",
+            "memberId": "S-1-5-21-1294218654-552819727-359541606-17943"
+          }
+        ],
+        "tablePermissions": [
+          {
+            "name": "Indicadores",
+            "filterExpression": "Indicadores[3.3 - Tienda] = \"019 - SANTA ANA\""
+          }
+        ]
+      },
+      {
+        "name": "Administracion_020",
+        "modelPermission": "read",
+        "members": [
+          {
+            "memberName": "UNICOMER\\admon_020",
+            "memberId": "S-1-5-21-1294218654-552819727-359541606-17953"
+          }
+        ],
+        "tablePermissions": [
+          {
+            "name": "Indicadores",
+            "filterExpression": "Indicadores[3.3 - Tienda] = \"020 - CANAS\""
+          }
+        ]
+      },
+      {
+        "name": "Administracion_022",
+        "modelPermission": "read",
+        "members": [
+          {
+            "memberName": "UNICOMER\\admon_022",
+            "memberId": "S-1-5-21-1294218654-552819727-359541606-17964"
+          }
+        ],
+        "tablePermissions": [
+          {
+            "name": "Indicadores",
+            "filterExpression": "Indicadores[3.3 - Tienda] = \"022 - JACO\""
+          }
+        ]
+      },
+      {
+        "name": "Administracion_023",
+        "modelPermission": "read",
+        "members": [
+          {
+            "memberName": "UNICOMER\\admon_023",
+            "memberId": "S-1-5-21-1294218654-552819727-359541606-17972"
+          }
+        ],
+        "tablePermissions": [
+          {
+            "name": "Indicadores",
+            "filterExpression": "Indicadores[3.3 - Tienda] = \"023 - LIBERIA-AVE\""
+          }
+        ]
+      },
+      {
+        "name": "Administracion_028",
+        "modelPermission": "read",
+        "members": [
+          {
+            "memberName": "UNICOMER\\admon_028",
+            "memberId": "S-1-5-21-1294218654-552819727-359541606-17573"
+          }
+        ],
+        "tablePermissions": [
+          {
+            "name": "Indicadores",
+            "filterExpression": "Indicadores[3.3 - Tienda] = \"028 - DESAMPA-CINE\""
+          }
+        ]
+      },
+      {
+        "name": "Administracion_031",
+        "modelPermission": "read",
+        "members": [
+          {
+            "memberName": "UNICOMER\\admon_031",
+            "memberId": "S-1-5-21-1294218654-552819727-359541606-17581"
+          }
+        ],
+        "tablePermissions": [
+          {
+            "name": "Indicadores",
+            "filterExpression": "Indicadores[3.3 - Tienda] = \"031 - QUEPOS\""
+          }
+        ]
+      },
+      {
+        "name": "Administracion_032",
+        "modelPermission": "read",
+        "members": [
+          {
+            "memberName": "UNICOMER\\admon_032",
+            "memberId": "S-1-5-21-1294218654-552819727-359541606-17592"
+          }
+        ],
+        "tablePermissions": [
+          {
+            "name": "Indicadores",
+            "filterExpression": "Indicadores[3.3 - Tienda] = \"032 - GUAPIL-CINE\""
+          }
+        ]
+      },
+      {
+        "name": "Administracion_033",
+        "modelPermission": "read",
+        "members": [
+          {
+            "memberName": "UNICOMER\\admon_033",
+            "memberId": "S-1-5-21-1294218654-552819727-359541606-19104"
+          }
+        ],
+        "tablePermissions": [
+          {
+            "name": "Indicadores",
+            "filterExpression": "Indicadores[3.3 - Tienda] = \"033 - SIQUIRRE-PZA\""
+          }
+        ]
+      },
+      {
+        "name": "Administracion_034",
+        "modelPermission": "read",
+        "members": [
+          {
+            "memberName": "UNICOMER\\admon_034",
+            "memberId": "S-1-5-21-1294218654-552819727-359541606-19485"
+          }
+        ],
+        "tablePermissions": [
+          {
+            "name": "Indicadores",
+            "filterExpression": "Indicadores[3.3 - Tienda] = \"034 - SAN RAMON\""
+          }
+        ]
+      },
+      {
+        "name": "Administracion_037",
+        "modelPermission": "read",
+        "members": [
+          {
+            "memberName": "UNICOMER\\admon_037",
+            "memberId": "S-1-5-21-1294218654-552819727-359541606-21023"
+          }
+        ],
+        "tablePermissions": [
+          {
+            "name": "Indicadores",
+            "filterExpression": "Indicadores[3.3 - Tienda] = \"037 - PAQUERA\""
+          }
+        ]
+      },
+      {
+        "name": "Administracion_038",
+        "modelPermission": "read",
+        "members": [
+          {
+            "memberName": "UNICOMER\\admon_038",
+            "memberId": "S-1-5-21-1294218654-552819727-359541606-21029"
+          }
+        ],
+        "tablePermissions": [
+          {
+            "name": "Indicadores",
+            "filterExpression": "Indicadores[3.3 - Tienda] = \"038 - NICOYA\""
+          }
+        ]
+      },
+      {
+        "name": "Administracion_039",
+        "modelPermission": "read",
+        "members": [
+          {
+            "memberName": "UNICOMER\\admon_039",
+            "memberId": "S-1-5-21-1294218654-552819727-359541606-21042"
+          }
+        ],
+        "tablePermissions": [
+          {
+            "name": "Indicadores",
+            "filterExpression": "Indicadores[3.3 - Tienda] = \"039 - PARRITA\""
+          }
+        ]
+      },
+      {
+        "name": "Administracion_042",
+        "modelPermission": "read",
+        "members": [
+          {
+            "memberName": "UNICOMER\\admon_042",
+            "memberId": "S-1-5-21-1294218654-552819727-359541606-21049"
+          }
+        ],
+        "tablePermissions": [
+          {
+            "name": "Indicadores",
+            "filterExpression": "Indicadores[3.3 - Tienda] = \"042 - PURISCAL\""
+          }
+        ]
+      },
+      {
+        "name": "Administracion_043",
+        "modelPermission": "read",
+        "members": [
+          {
+            "memberName": "UNICOMER\\admon_043",
+            "memberId": "S-1-5-21-1294218654-552819727-359541606-21056"
+          }
+        ],
+        "tablePermissions": [
+          {
+            "name": "Indicadores",
+            "filterExpression": "Indicadores[3.3 - Tienda] = \"043 - CARTAG-PG\""
+          }
+        ]
+      },
+      {
+        "name": "Administracion_044",
+        "modelPermission": "read",
+        "members": [
+          {
+            "memberName": "UNICOMER\\admon_044",
+            "memberId": "S-1-5-21-1294218654-552819727-359541606-21072"
+          }
+        ],
+        "tablePermissions": [
+          {
+            "name": "Indicadores",
+            "filterExpression": "Indicadores[3.3 - Tienda] = \"044 - HEREDIA-MERC\""
+          }
+        ]
+      },
+      {
+        "name": "Administracion_045",
+        "modelPermission": "read",
+        "members": [
+          {
+            "memberName": "UNICOMER\\admon_045",
+            "memberId": "S-1-5-21-1294218654-552819727-359541606-21090"
+          }
+        ],
+        "tablePermissions": [
+          {
+            "name": "Indicadores",
+            "filterExpression": "Indicadores[3.3 - Tienda] = \"045 - CIUDAD NEILY\""
+          }
+        ]
+      },
+      {
+        "name": "Administracion_048",
+        "modelPermission": "read",
+        "members": [
+          {
+            "memberName": "UNICOMER\\admon_048",
+            "memberId": "S-1-5-21-1294218654-552819727-359541606-21099"
+          }
+        ],
+        "tablePermissions": [
+          {
+            "name": "Indicadores",
+            "filterExpression": "Indicadores[3.3 - Tienda] = \"048 - EL ROBLE\""
+          }
+        ]
+      },
+      {
+        "name": "Administracion_050",
+        "modelPermission": "read",
+        "members": [
+          {
+            "memberName": "UNICOMER\\admon_050",
+            "memberId": "S-1-5-21-1294218654-552819727-359541606-19600"
+          }
+        ],
+        "tablePermissions": [
+          {
+            "name": "Indicadores",
+            "filterExpression": "Indicadores[3.3 - Tienda] = \"050 - SANTA CRUZ\""
+          }
+        ]
+      },
+      {
+        "name": "Administracion_052",
+        "modelPermission": "read",
+        "members": [
+          {
+            "memberName": "UNICOMER\\admon_052",
+            "memberId": "S-1-5-21-1294218654-552819727-359541606-22112"
+          }
+        ],
+        "tablePermissions": [
+          {
+            "name": "Indicadores",
+            "filterExpression": "Indicadores[3.3 - Tienda] = \"052 - PITAL\""
+          }
+        ]
+      },
+      {
+        "name": "Administracion_053",
+        "modelPermission": "read",
+        "members": [
+          {
+            "memberName": "UNICOMER\\admon_053",
+            "memberId": "S-1-5-21-1294218654-552819727-359541606-22120"
+          }
+        ],
+        "tablePermissions": [
+          {
+            "name": "Indicadores",
+            "filterExpression": "Indicadores[3.3 - Tienda] = \"053 - LA FORTUNA\""
+          }
+        ]
+      },
+      {
+        "name": "Administracion_054",
+        "modelPermission": "read",
+        "members": [
+          {
+            "memberName": "UNICOMER\\admon_054",
+            "memberId": "S-1-5-21-1294218654-552819727-359541606-22128"
+          }
+        ],
+        "tablePermissions": [
+          {
+            "name": "Indicadores",
+            "filterExpression": "Indicadores[3.3 - Tienda] = \"054 - PARAISO\""
+          }
+        ]
+      },
+      {
+        "name": "Administracion_055",
+        "modelPermission": "read",
+        "members": [
+          {
+            "memberName": "UNICOMER\\admon_055",
+            "memberId": "S-1-5-21-1294218654-552819727-359541606-23465"
+          }
+        ],
+        "tablePermissions": [
+          {
+            "name": "Indicadores",
+            "filterExpression": "Indicadores[3.3 - Tienda] = \"055 - GRECIA\""
+          }
+        ]
+      },
+      {
+        "name": "Administracion_056",
+        "modelPermission": "read",
+        "members": [
+          {
+            "memberName": "UNICOMER\\admon_056",
+            "memberId": "S-1-5-21-1294218654-552819727-359541606-18342"
+          }
+        ],
+        "tablePermissions": [
+          {
+            "name": "Indicadores",
+            "filterExpression": "Indicadores[3.3 - Tienda] = \"056 - LIMON-ACON\""
+          }
+        ]
+      },
+      {
+        "name": "Administracion_057",
+        "modelPermission": "read",
+        "members": [
+          {
+            "memberName": "UNICOMER\\admon_057",
+            "memberId": "S-1-5-21-1294218654-552819727-359541606-18345"
+          }
+        ],
+        "tablePermissions": [
+          {
+            "name": "Indicadores",
+            "filterExpression": "Indicadores[3.3 - Tienda] = \"057 - PAVAS-PALI\""
+          }
+        ]
+      },
+      {
+        "name": "Administracion_058",
+        "modelPermission": "read",
+        "members": [
+          {
+            "memberName": "UNICOMER\\admon_058",
+            "memberId": "S-1-5-21-1294218654-552819727-359541606-23538"
+          }
+        ],
+        "tablePermissions": [
+          {
+            "name": "Indicadores",
+            "filterExpression": "Indicadores[3.3 - Tienda] = \"058 - TIBAS\""
+          }
+        ]
+      },
+      {
+        "name": "Administracion_059",
+        "modelPermission": "read",
+        "members": [
+          {
+            "memberName": "UNICOMER\\admon_059",
+            "memberId": "S-1-5-21-1294218654-552819727-359541606-37784"
+          }
+        ],
+        "tablePermissions": [
+          {
+            "name": "Indicadores",
+            "filterExpression": "Indicadores[3.3 - Tienda] = \"059 - GOLFITO L#9\""
+          }
+        ]
+      },
+      {
+        "name": "Administracion_060",
+        "modelPermission": "read",
+        "members": [
+          {
+            "memberName": "UNICOMER\\admon_060",
+            "memberId": "S-1-5-21-1294218654-552819727-359541606-18361"
+          }
+        ],
+        "tablePermissions": [
+          {
+            "name": "Indicadores",
+            "filterExpression": "Indicadores[3.3 - Tienda] = \"060 - SN SEBASTIAN\""
+          }
+        ]
+      },
+      {
+        "name": "Administracion_061",
+        "modelPermission": "read",
+        "members": [
+          {
+            "memberName": "UNICOMER\\admon_061",
+            "memberId": "S-1-5-21-1294218654-552819727-359541606-18369"
+          }
+        ],
+        "tablePermissions": [
+          {
+            "name": "Indicadores",
+            "filterExpression": "Indicadores[3.3 - Tienda] = \"061 - HEREDIA-CART\""
+          }
+        ]
+      },
+      {
+        "name": "Administracion_062",
+        "modelPermission": "read",
+        "members": [
+          {
+            "memberName": "UNICOMER\\admon_062",
+            "memberId": "S-1-5-21-1294218654-552819727-359541606-18375"
+          }
+        ],
+        "tablePermissions": [
+          {
+            "name": "Indicadores",
+            "filterExpression": "Indicadores[3.3 - Tienda] = \"062 - EL COCO\""
+          }
+        ]
+      },
+      {
+        "name": "Administracion_063",
+        "modelPermission": "read",
+        "members": [
+          {
+            "memberName": "UNICOMER\\admon_063",
+            "memberId": "S-1-5-21-1294218654-552819727-359541606-18385"
+          }
+        ],
+        "tablePermissions": [
+          {
+            "name": "Indicadores",
+            "filterExpression": "Indicadores[3.3 - Tienda] = \"063 - S.M. TARRAZU\" || Indicadores[3.3 - Tienda] = \"330 - FRAILES\""
+          }
+        ]
+      },
+      {
+        "name": "Administracion_065",
+        "modelPermission": "read",
+        "members": [
+          {
+            "memberName": "UNICOMER\\admon_065",
+            "memberId": "S-1-5-21-1294218654-552819727-359541606-18391"
+          }
+        ],
+        "tablePermissions": [
+          {
+            "name": "Indicadores",
+            "filterExpression": "Indicadores[3.3 - Tienda] = \"065 - COBANO\""
+          }
+        ]
+      },
+      {
+        "name": "Administracion_066",
+        "modelPermission": "read",
+        "members": [
+          {
+            "memberName": "UNICOMER\\admon_066",
+            "memberId": "S-1-5-21-1294218654-552819727-359541606-18398"
+          }
+        ],
+        "tablePermissions": [
+          {
+            "name": "Indicadores",
+            "filterExpression": "Indicadores[3.3 - Tienda] = \"066 - ESPARZA\""
+          }
+        ]
+      },
+      {
+        "name": "Administracion_067",
+        "modelPermission": "read",
+        "members": [
+          {
+            "memberName": "UNICOMER\\admon_067",
+            "memberId": "S-1-5-21-1294218654-552819727-359541606-18409"
+          }
+        ],
+        "tablePermissions": [
+          {
+            "name": "Indicadores",
+            "filterExpression": "Indicadores[3.3 - Tienda] = \"067 - BATAN\""
+          }
+        ]
+      },
+      {
+        "name": "Administracion_068",
+        "modelPermission": "read",
+        "members": [
+          {
+            "memberName": "UNICOMER\\admon_068",
+            "memberId": "S-1-5-21-1294218654-552819727-359541606-18414"
+          }
+        ],
+        "tablePermissions": [
+          {
+            "name": "Indicadores",
+            "filterExpression": "Indicadores[3.3 - Tienda] = \"068 - AGUAS ZARCAS\""
+          }
+        ]
+      },
+      {
+        "name": "Administracion_069",
+        "modelPermission": "read",
+        "members": [
+          {
+            "memberName": "UNICOMER\\admon_069",
+            "memberId": "S-1-5-21-1294218654-552819727-359541606-18419"
+          }
+        ],
+        "tablePermissions": [
+          {
+            "name": "Indicadores",
+            "filterExpression": "Indicadores[3.3 - Tienda] = \"069 - SCARLOS-ESQ\""
+          }
+        ]
+      },
+      {
+        "name": "Administracion_070",
+        "modelPermission": "read",
+        "members": [
+          {
+            "memberName": "UNICOMER\\admon_070",
+            "memberId": "S-1-5-21-1294218654-552819727-359541606-18430"
+          }
+        ],
+        "tablePermissions": [
+          {
+            "name": "Indicadores",
+            "filterExpression": "Indicadores[3.3 - Tienda] = \"070 - CORONADO\""
+          }
+        ]
+      },
+      {
+        "name": "Administracion_071",
+        "modelPermission": "read",
+        "members": [
+          {
+            "memberName": "UNICOMER\\admon_071",
+            "memberId": "S-1-5-21-1294218654-552819727-359541606-18442"
+          }
+        ],
+        "tablePermissions": [
+          {
+            "name": "Indicadores",
+            "filterExpression": "Indicadores[3.3 - Tienda] = \"071 - JICARAL\""
+          }
+        ]
+      },
+      {
+        "name": "Administracion_072",
+        "modelPermission": "read",
+        "members": [
+          {
+            "memberName": "UNICOMER\\admon_072",
+            "memberId": "S-1-5-21-1294218654-552819727-359541606-23629"
+          }
+        ],
+        "tablePermissions": [
+          {
+            "name": "Indicadores",
+            "filterExpression": "Indicadores[3.3 - Tienda] = \"072 - SARAPIQUI\""
+          }
+        ]
+      },
+      {
+        "name": "Administracion_073",
+        "modelPermission": "read",
+        "members": [
+          {
+            "memberName": "UNICOMER\\admon_073",
+            "memberId": "S-1-5-21-1294218654-552819727-359541606-18451"
+          }
+        ],
+        "tablePermissions": [
+          {
+            "name": "Indicadores",
+            "filterExpression": "Indicadores[3.3 - Tienda] = \"073 - PALMARES\""
+          }
+        ]
+      },
+      {
+        "name": "Administracion_074",
+        "modelPermission": "read",
+        "members": [
+          {
+            "memberName": "UNICOMER\\admon_074",
+            "memberId": "S-1-5-21-1294218654-552819727-359541606-23509"
+          }
+        ],
+        "tablePermissions": [
+          {
+            "name": "Indicadores",
+            "filterExpression": "Indicadores[3.3 - Tienda] = \"074 - STA. BARBARA\""
+          }
+        ]
+      },
+      {
+        "name": "Administracion_075",
+        "modelPermission": "read",
+        "members": [
+          {
+            "memberName": "UNICOMER\\admon_075",
+            "memberId": "S-1-5-21-1294218654-552819727-359541606-18471"
+          }
+        ],
+        "tablePermissions": [
+          {
+            "name": "Indicadores",
+            "filterExpression": "Indicadores[3.3 - Tienda] = \"075 - GUAPIL-ABAJO\""
+          }
+        ]
+      },
+      {
+        "name": "Administracion_077",
+        "modelPermission": "read",
+        "members": [
+          {
+            "memberName": "UNICOMER\\admon_077",
+            "memberId": "S-1-5-21-1294218654-552819727-359541606-18474"
+          }
+        ],
+        "tablePermissions": [
+          {
+            "name": "Indicadores",
+            "filterExpression": "Indicadores[3.3 - Tienda] = \"077 - SJOSE-AVE.2\""
+          }
+        ]
+      },
+      {
+        "name": "Administracion_078",
+        "modelPermission": "read",
+        "members": [
+          {
+            "memberName": "UNICOMER\\admon_078",
+            "memberId": "S-1-5-21-1294218654-552819727-359541606-23546"
+          }
+        ],
+        "tablePermissions": [
+          {
+            "name": "Indicadores",
+            "filterExpression": "Indicadores[3.3 - Tienda] = \"078 - SJOSE-P.CTRL\""
+          }
+        ]
+      },
+      {
+        "name": "Administracion_079",
+        "modelPermission": "read",
+        "members": [
+          {
+            "memberName": "UNICOMER\\admon_079",
+            "memberId": "S-1-5-21-1294218654-552819727-359541606-18504"
+          }
+        ],
+        "tablePermissions": [
+          {
+            "name": "Indicadores",
+            "filterExpression": "Indicadores[3.3 - Tienda] = \"079 - SN ANT.BELEN\""
+          }
+        ]
+      },
+      {
+        "name": "Administracion_080",
+        "modelPermission": "read",
+        "members": [
+          {
+            "memberName": "UNICOMER\\admon_080",
+            "memberId": "S-1-5-21-1294218654-552819727-359541606-18512"
+          }
+        ],
+        "tablePermissions": [
+          {
+            "name": "Indicadores",
+            "filterExpression": "Indicadores[3.3 - Tienda] = \"080 - TRES RIOS\""
+          }
+        ]
+      },
+      {
+        "name": "Administracion_081",
+        "modelPermission": "read",
+        "members": [
+          {
+            "memberName": "UNICOMER\\admon_081",
+            "memberId": "S-1-5-21-1294218654-552819727-359541606-18523"
+          }
+        ],
+        "tablePermissions": [
+          {
+            "name": "Indicadores",
+            "filterExpression": "Indicadores[3.3 - Tienda] = \"081 - NARANJO\""
+          }
+        ]
+      },
+      {
+        "name": "Administracion_082",
+        "modelPermission": "read",
+        "members": [
+          {
+            "memberName": "UNICOMER\\admon_082",
+            "memberId": "S-1-5-21-1294218654-552819727-359541606-18533"
+          }
+        ],
+        "tablePermissions": [
+          {
+            "name": "Indicadores",
+            "filterExpression": "Indicadores[3.3 - Tienda] = \"082 - CARIARI\""
+          }
+        ]
+      },
+      {
+        "name": "Administracion_083",
+        "modelPermission": "read",
+        "members": [
+          {
+            "memberName": "UNICOMER\\admon_083",
+            "memberId": "S-1-5-21-1294218654-552819727-359541606-18541"
+          }
+        ],
+        "tablePermissions": [
+          {
+            "name": "Indicadores",
+            "filterExpression": "Indicadores[3.3 - Tienda] = \"083 - BUENOS AIRES\""
+          }
+        ]
+      },
+      {
+        "name": "Administracion_084",
+        "modelPermission": "read",
+        "members": [
+          {
+            "memberName": "UNICOMER\\admon_084",
+            "memberId": "S-1-5-21-1294218654-552819727-359541606-30903"
+          }
+        ],
+        "tablePermissions": [
+          {
+            "name": "Indicadores",
+            "filterExpression": "Indicadores[3.3 - Tienda] = \"084 - TILARAN\""
+          }
+        ]
+      },
+      {
+        "name": "Administracion_086",
+        "modelPermission": "read",
+        "members": [
+          {
+            "memberName": "UNICOMER\\admon_086",
+            "memberId": "S-1-5-21-1294218654-552819727-359541606-18562"
+          }
+        ],
+        "tablePermissions": [
+          {
+            "name": "Indicadores",
+            "filterExpression": "Indicadores[3.3 - Tienda] = \"086 - ALAJUEL-REY\""
+          }
+        ]
+      },
+      {
+        "name": "Administracion_087",
+        "modelPermission": "read",
+        "members": [
+          {
+            "memberName": "UNICOMER\\admon_087",
+            "memberId": "S-1-5-21-1294218654-552819727-359541606-18570"
+          }
+        ],
+        "tablePermissions": [
+          {
+            "name": "Indicadores",
+            "filterExpression": "Indicadores[3.3 - Tienda] = \"087 - MIRAMAR\""
+          }
+        ]
+      },
+      {
+        "name": "Administracion_088",
+        "modelPermission": "read",
+        "members": [
+          {
+            "memberName": "UNICOMER\\admon_088",
+            "memberId": "S-1-5-21-1294218654-552819727-359541606-18573"
+          }
+        ],
+        "tablePermissions": [
+          {
+            "name": "Indicadores",
+            "filterExpression": "Indicadores[3.3 - Tienda] = \"088 - LA CRUZ\""
+          }
+        ]
+      },
+      {
+        "name": "Administracion_089",
+        "modelPermission": "read",
+        "members": [
+          {
+            "memberName": "UNICOMER\\admon_089",
+            "memberId": "S-1-5-21-1294218654-552819727-359541606-18577"
+          }
+        ],
+        "tablePermissions": [
+          {
+            "name": "Indicadores",
+            "filterExpression": "Indicadores[3.3 - Tienda] = \"089 - GUACIMO\""
+          }
+        ]
+      },
+      {
+        "name": "Administracion_091",
+        "modelPermission": "read",
+        "members": [
+          {
+            "memberName": "UNICOMER\\admon_091",
+            "memberId": "S-1-5-21-1294218654-552819727-359541606-18586"
+          }
+        ],
+        "tablePermissions": [
+          {
+            "name": "Indicadores",
+            "filterExpression": "Indicadores[3.3 - Tienda] = \"091 - POAS\""
+          }
+        ]
+      },
+      {
+        "name": "Administracion_092",
+        "modelPermission": "read",
+        "members": [
+          {
+            "memberName": "UNICOMER\\admon_092",
+            "memberId": "S-1-5-21-1294218654-552819727-359541606-18596"
+          }
+        ],
+        "tablePermissions": [
+          {
+            "name": "Indicadores",
+            "filterExpression": "Indicadores[3.3 - Tienda] = \"092 - TURRIAL-G+G\""
+          }
+        ]
+      },
+      {
+        "name": "Administracion_093",
+        "modelPermission": "read",
+        "members": [
+          {
+            "memberName": "UNICOMER\\admon_093",
+            "memberId": "S-1-5-21-1294218654-552819727-359541606-18600"
+          }
+        ],
+        "tablePermissions": [
+          {
+            "name": "Indicadores",
+            "filterExpression": "Indicadores[3.3 - Tienda] = \"093 - BRIBRI\""
+          }
+        ]
+      },
+      {
+        "name": "Administracion_094",
+        "modelPermission": "read",
+        "members": [
+          {
+            "memberName": "UNICOMER\\admon_094",
+            "memberId": "S-1-5-21-1294218654-552819727-359541606-23107"
+          }
+        ],
+        "tablePermissions": [
+          {
+            "name": "Indicadores",
+            "filterExpression": "Indicadores[3.3 - Tienda] = \"094 - ATENAS\""
+          }
+        ]
+      },
+      {
+        "name": "Administracion_095",
+        "modelPermission": "read",
+        "members": [
+          {
+            "memberName": "UNICOMER\\admon_095",
+            "memberId": "S-1-5-21-1294218654-552819727-359541606-23109"
+          }
+        ],
+        "tablePermissions": [
+          {
+            "name": "Indicadores",
+            "filterExpression": "Indicadores[3.3 - Tienda] = \"095 - HEREDIA-MXM\""
+          }
+        ]
+      },
+      {
+        "name": "Administracion_096",
+        "modelPermission": "read",
+        "members": [
+          {
+            "memberName": "UNICOMER\\admon_096",
+            "memberId": "S-1-5-21-1294218654-552819727-359541606-23128"
+          }
+        ],
+        "tablePermissions": [
+          {
+            "name": "Indicadores",
+            "filterExpression": "Indicadores[3.3 - Tienda] = \"096 - LIBERIA-CINE\""
+          }
+        ]
+      },
+      {
+        "name": "Administracion_097",
+        "modelPermission": "read",
+        "members": [
+          {
+            "memberName": "UNICOMER\\admon_097",
+            "memberId": "S-1-5-21-1294218654-552819727-359541606-23138"
+          }
+        ],
+        "tablePermissions": [
+          {
+            "name": "Indicadores",
+            "filterExpression": "Indicadores[3.3 - Tienda] = \"097 - SCARLOS-G+G CERRADO\""
+          }
+        ]
+      },
+      {
+        "name": "Administracion_098",
+        "modelPermission": "read",
+        "members": [
+          {
+            "memberName": "UNICOMER\\admon_098",
+            "memberId": "S-1-5-21-1294218654-552819727-359541606-23143"
+          }
+        ],
+        "tablePermissions": [
+          {
+            "name": "Indicadores",
+            "filterExpression": "Indicadores[3.3 - Tienda] = \"098 - ZARCERO\""
+          }
+        ]
+      },
+      {
+        "name": "Administracion_102",
+        "modelPermission": "read",
+        "members": [
+          {
+            "memberName": "UNICOMER\\admon_102",
+            "memberId": "S-1-5-21-1294218654-552819727-359541606-23559"
+          }
+        ],
+        "tablePermissions": [
+          {
+            "name": "Indicadores",
+            "filterExpression": "Indicadores[3.3 - Tienda] = \"102 - DESAMPA-IGLE(CERRADO)\""
+          }
+        ]
+      },
+      {
+        "name": "Administracion_103",
+        "modelPermission": "read",
+        "members": [
+          {
+            "memberName": "UNICOMER\\admon_103",
+            "memberId": "S-1-5-21-1294218654-552819727-359541606-23154"
+          }
+        ],
+        "tablePermissions": [
+          {
+            "name": "Indicadores",
+            "filterExpression": "Indicadores[3.3 - Tienda] = \"103 - CARTAG-L.ANG\""
+          }
+        ]
+      },
+      {
+        "name": "Administracion_104",
+        "modelPermission": "read",
+        "members": [
+          {
+            "memberName": "UNICOMER\\admon_104",
+            "memberId": "S-1-5-21-1294218654-552819727-359541606-23520"
+          }
+        ],
+        "tablePermissions": [
+          {
+            "name": "Indicadores",
+            "filterExpression": "Indicadores[3.3 - Tienda] = \"104 - STO DOMINGO\""
+          }
+        ]
+      },
+      {
+        "name": "Administracion_105",
+        "modelPermission": "read",
+        "members": [
+          {
+            "memberName": "UNICOMER\\admon_105",
+            "memberId": "S-1-5-21-1294218654-552819727-359541606-23168"
+          }
+        ],
+        "tablePermissions": [
+          {
+            "name": "Indicadores",
+            "filterExpression": "Indicadores[3.3 - Tienda] = \"105 - ACOSTA\""
+          }
+        ]
+      },
+      {
+        "name": "Administracion_108",
+        "modelPermission": "read",
+        "members": [
+          {
+            "memberName": "UNICOMER\\admon_108",
+            "memberId": "S-1-5-21-1294218654-552819727-359541606-23177"
+          }
+        ],
+        "tablePermissions": [
+          {
+            "name": "Indicadores",
+            "filterExpression": "Indicadores[3.3 - Tienda] = \"108 - SIQUIRRE-G+G\""
+          }
+        ]
+      },
+      {
+        "name": "Administracion_109",
+        "modelPermission": "read",
+        "members": [
+          {
+            "memberName": "UNICOMER\\admon_109",
+            "memberId": "S-1-5-21-1294218654-552819727-359541606-23188"
+          }
+        ],
+        "tablePermissions": [
+          {
+            "name": "Indicadores",
+            "filterExpression": "Indicadores[3.3 - Tienda] = \"109 - CIUDAD COLON\""
+          }
+        ]
+      },
+      {
+        "name": "Administracion_110",
+        "modelPermission": "read",
+        "members": [
+          {
+            "memberName": "UNICOMER\\admon_110",
+            "memberId": "S-1-5-21-1294218654-552819727-359541606-23193"
+          }
+        ],
+        "tablePermissions": [
+          {
+            "name": "Indicadores",
+            "filterExpression": "Indicadores[3.3 - Tienda] = \"110 - OROTINA -PARQ\""
+          }
+        ]
+      },
+      {
+        "name": "Administracion_111",
+        "modelPermission": "read",
+        "members": [
+          {
+            "memberName": "UNICOMER\\admon_111",
+            "memberId": "S-1-5-21-1294218654-552819727-359541606-23201"
+          }
+        ],
+        "tablePermissions": [
+          {
+            "name": "Indicadores",
+            "filterExpression": "Indicadores[3.3 - Tienda] = \"111 - TAMARINDO\""
+          }
+        ]
+      },
+      {
+        "name": "Administracion_112",
+        "modelPermission": "read",
+        "members": [
+          {
+            "memberName": "UNICOMER\\admon_112",
+            "memberId": "S-1-5-21-1294218654-552819727-359541606-23596"
+          }
+        ],
+        "tablePermissions": [
+          {
+            "name": "Indicadores",
+            "filterExpression": "Indicadores[3.3 - Tienda] = \"112 - ALAJUELITA\""
+          }
+        ]
+      },
+      {
+        "name": "Administracion_115",
+        "modelPermission": "read",
+        "members": [
+          {
+            "memberName": "UNICOMER\\admon_115",
+            "memberId": "S-1-5-21-1294218654-552819727-359541606-23609"
+          }
+        ],
+        "tablePermissions": [
+          {
+            "name": "Indicadores",
+            "filterExpression": "Indicadores[3.3 - Tienda] = \"115 - ESCAZU\""
+          }
+        ]
+      },
+      {
+        "name": "Administracion_116",
+        "modelPermission": "read",
+        "members": [
+          {
+            "memberName": "UNICOMER\\admon_116",
+            "memberId": "S-1-5-21-1294218654-552819727-359541606-23217"
+          }
+        ],
+        "tablePermissions": [
+          {
+            "name": "Indicadores",
+            "filterExpression": "Indicadores[3.3 - Tienda] = \"116 - S.ISIDRO 116\""
+          }
+        ]
+      },
+      {
+        "name": "Administracion_118",
+        "modelPermission": "read",
+        "members": [
+          {
+            "memberName": "UNICOMER\\admon_118",
+            "memberId": "S-1-5-21-1294218654-552819727-359541606-23233"
+          }
+        ],
+        "tablePermissions": [
+          {
+            "name": "Indicadores",
+            "filterExpression": "Indicadores[3.3 - Tienda] = \"118 - GUAPIL-G+G\""
+          }
+        ]
+      },
+      {
+        "name": "Administracion_119",
+        "modelPermission": "read",
+        "members": [
+          {
+            "memberName": "UNICOMER\\admon_119",
+            "memberId": "S-1-5-21-1294218654-552819727-359541606-23244"
+          }
+        ],
+        "tablePermissions": [
+          {
+            "name": "Indicadores",
+            "filterExpression": "Indicadores[3.3 - Tienda] = \"119 - ZAPOTE\""
+          }
+        ]
+      },
+      {
+        "name": "Administracion_120",
+        "modelPermission": "read",
+        "members": [
+          {
+            "memberName": "UNICOMER\\admon_120",
+            "memberId": "S-1-5-21-1294218654-552819727-359541606-23258"
+          }
+        ],
+        "tablePermissions": [
+          {
+            "name": "Indicadores",
+            "filterExpression": "Indicadores[3.3 - Tienda] = \"120 - S.I. HEREDIA\""
+          }
+        ]
+      },
+      {
+        "name": "Administracion_121",
+        "modelPermission": "read",
+        "members": [
+          {
+            "memberName": "UNICOMER\\admon_121",
+            "memberId": "S-1-5-21-1294218654-552819727-359541606-23269"
+          }
+        ],
+        "tablePermissions": [
+          {
+            "name": "Indicadores",
+            "filterExpression": "Indicadores[3.3 - Tienda] = \"121 - SAN RAFAEL HEREDIA\""
+          }
+        ]
+      },
+      {
+        "name": "Administracion_122",
+        "modelPermission": "read",
+        "members": [
+          {
+            "memberName": "UNICOMER\\admon_122",
+            "memberId": "S-1-5-21-1294218654-552819727-359541606-23474"
+          }
+        ],
+        "tablePermissions": [
+          {
+            "name": "Indicadores",
+            "filterExpression": "Indicadores[3.3 - Tienda] = \"122 - G+G ALAJUELA\""
+          }
+        ]
+      },
+      {
+        "name": "Administracion_123",
+        "modelPermission": "read",
+        "members": [
+          {
+            "memberName": "UNICOMER\\admon_123",
+            "memberId": "S-1-5-21-1294218654-552819727-359541606-23280"
+          }
+        ],
+        "tablePermissions": [
+          {
+            "name": "Indicadores",
+            "filterExpression": "Indicadores[3.3 - Tienda] = \"123 - S.RAF.ALAJUE\""
+          }
+        ]
+      },
+      {
+        "name": "Administracion_124",
+        "modelPermission": "read",
+        "members": [
+          {
+            "memberName": "UNICOMER\\admon_124",
+            "memberId": "S-1-5-21-1294218654-552819727-359541606-23790"
+          }
+        ],
+        "tablePermissions": [
+          {
+            "name": "Indicadores",
+            "filterExpression": "Indicadores[3.3 - Tienda] = \"124 - SANTA ROSA DE POCOSOL\""
+          }
+        ]
+      },
+      {
+        "name": "Administracion_126",
+        "modelPermission": "read",
+        "members": [
+          {
+            "memberName": "UNICOMER\\admon_126",
+            "memberId": "S-1-5-21-1294218654-552819727-359541606-23564"
+          }
+        ],
+        "tablePermissions": [
+          {
+            "name": "Indicadores",
+            "filterExpression": "Indicadores[3.3 - Tienda] = \"126 - SAN RAFAEL ABAJO DESAMPARADOS\""
+          }
+        ]
+      },
+      {
+        "name": "Administracion_127",
+        "modelPermission": "read",
+        "members": [
+          {
+            "memberName": "UNICOMER\\admon_127",
+            "memberId": "S-1-5-21-1294218654-552819727-359541606-23299"
+          }
+        ],
+        "tablePermissions": [
+          {
+            "name": "Indicadores",
+            "filterExpression": "Indicadores[3.3 - Tienda] = \"127 - GOLLO REMATE #127\""
+          }
+        ]
+      },
+      {
+        "name": "Administracion_128",
+        "modelPermission": "read",
+        "members": [
+          {
+            "memberName": "UNICOMER\\admon_128",
+            "memberId": "S-1-5-21-1294218654-552819727-359541606-23570"
+          }
+        ],
+        "tablePermissions": [
+          {
+            "name": "Indicadores",
+            "filterExpression": "Indicadores[3.3 - Tienda] = \"128 - ASERRI\""
+          }
+        ]
+      },
+      {
+        "name": "Administracion_129",
+        "modelPermission": "read",
+        "members": [
+          {
+            "memberName": "UNICOMER\\admon_129",
+            "memberId": "S-1-5-21-1294218654-552819727-359541606-23576"
+          }
+        ],
+        "tablePermissions": [
+          {
+            "name": "Indicadores",
+            "filterExpression": "Indicadores[3.3 - Tienda] = \"129 - MORAVIA\""
+          }
+        ]
+      },
+      {
+        "name": "Administracion_131",
+        "modelPermission": "read",
+        "members": [
+          {
+            "memberName": "UNICOMER\\admon_131",
+            "memberId": "S-1-5-21-1294218654-552819727-359541606-23322"
+          }
+        ],
+        "tablePermissions": [
+          {
+            "name": "Indicadores",
+            "filterExpression": "Indicadores[3.3 - Tienda] = \"131 - SANTA CRUZ #2\""
+          }
+        ]
+      },
+      {
+        "name": "Administracion_132",
+        "modelPermission": "read",
+        "members": [
+          {
+            "memberName": "UNICOMER\\admon_132",
+            "memberId": "S-1-5-21-1294218654-552819727-359541606-23328"
+          }
+        ],
+        "tablePermissions": [
+          {
+            "name": "Indicadores",
+            "filterExpression": "Indicadores[3.3 - Tienda] = \"132 - RIO CLARO\""
+          }
+        ]
+      },
+      {
+        "name": "Administracion_134",
+        "modelPermission": "read",
+        "members": [
+          {
+            "memberName": "UNICOMER\\admon_134",
+            "memberId": "S-1-5-21-1294218654-552819727-359541606-23332"
+          }
+        ],
+        "tablePermissions": [
+          {
+            "name": "Indicadores",
+            "filterExpression": "Indicadores[3.3 - Tienda] = \"134 - GOLLO LOS CHILES\""
+          }
+        ]
+      },
+      {
+        "name": "Administracion_136",
+        "modelPermission": "read",
+        "members": [
+          {
+            "memberName": "UNICOMER\\admon_136",
+            "memberId": "S-1-5-21-1294218654-552819727-359541606-23340"
+          }
+        ],
+        "tablePermissions": [
+          {
+            "name": "Indicadores",
+            "filterExpression": "Indicadores[3.3 - Tienda] = \"136 - GOLLO GUAYABO-GENERAL\""
+          }
+        ]
+      },
+      {
+        "name": "Administracion_137",
+        "modelPermission": "read",
+        "members": [
+          {
+            "memberName": "UNICOMER\\admon_137",
+            "memberId": "S-1-5-21-1294218654-552819727-359541606-23344"
+          }
+        ],
+        "tablePermissions": [
+          {
+            "name": "Indicadores",
+            "filterExpression": "Indicadores[3.3 - Tienda] = \"137 - SARCHI NORTE\""
+          }
+        ]
+      },
+      {
+        "name": "Administracion_140",
+        "modelPermission": "read",
+        "members": [
+          {
+            "memberName": "UNICOMER\\admon_140",
+            "memberId": "S-1-5-21-1294218654-552819727-359541606-23349"
+          }
+        ],
+        "tablePermissions": [
+          {
+            "name": "Indicadores",
+            "filterExpression": "Indicadores[3.3 - Tienda] = \"140 - NICOYA #2\""
+          }
+        ]
+      },
+      {
+        "name": "Administracion_141",
+        "modelPermission": "read",
+        "members": [
+          {
+            "memberName": "UNICOMER\\admon_141",
+            "memberId": "S-1-5-21-1294218654-552819727-359541606-23516"
+          }
+        ],
+        "tablePermissions": [
+          {
+            "name": "Indicadores",
+            "filterExpression": "Indicadores[3.3 - Tienda] = \"141 - BARVA\""
+          }
+        ]
+      },
+      {
+        "name": "Administracion_142",
+        "modelPermission": "read",
+        "members": [
+          {
+            "memberName": "UNICOMER\\admon_142",
+            "memberId": "S-1-5-21-1294218654-552819727-359541606-23358"
+          }
+        ],
+        "tablePermissions": [
+          {
+            "name": "Indicadores",
+            "filterExpression": "Indicadores[3.3 - Tienda] = \"142 - GOLLO NEILY #2 CERRADO\""
+          }
+        ]
+      },
+      {
+        "name": "Administracion_143",
+        "modelPermission": "read",
+        "members": [
+          {
+            "memberName": "UNICOMER\\admon_143",
+            "memberId": "S-1-5-21-1294218654-552819727-359541606-28918"
+          }
+        ],
+        "tablePermissions": [
+          {
+            "name": "Indicadores",
+            "filterExpression": "Indicadores[3.3 - Tienda] = \"143 - ESCAZU #2 CERRADO\""
+          }
+        ]
+      },
+      {
+        "name": "Administracion_145",
+        "modelPermission": "read",
+        "members": [
+          {
+            "memberName": "UNICOMER\\admon_145",
+            "memberId": "S-1-5-21-1294218654-552819727-359541606-27175"
+          }
+        ],
+        "tablePermissions": [
+          {
+            "name": "Indicadores",
+            "filterExpression": "Indicadores[3.3 - Tienda] = \"145 - GOLLO GUADALUPE #02\""
+          }
+        ]
+      },
+      {
+        "name": "Administracion_146",
+        "modelPermission": "read",
+        "members": [
+          {
+            "memberName": "UNICOMER\\admon_146",
+            "memberId": "S-1-5-21-1294218654-552819727-359541606-27234"
+          }
+        ],
+        "tablePermissions": [
+          {
+            "name": "Indicadores",
+            "filterExpression": "Indicadores[3.3 - Tienda] = \"146 - GOLLO FLORENCIA #146\""
+          }
+        ]
+      },
+      {
+        "name": "Administracion_148",
+        "modelPermission": "read",
+        "members": [
+          {
+            "memberName": "UNICOMER\\admon_148",
+            "memberId": "S-1-5-21-1294218654-552819727-359541606-29780"
+          }
+        ],
+        "tablePermissions": [
+          {
+            "name": "Indicadores",
+            "filterExpression": "Indicadores[3.3 - Tienda] = \"148 - GOLLO CARIARI #2\""
+          }
+        ]
+      },
+      {
+        "name": "Administracion_149",
+        "modelPermission": "read",
+        "members": [
+          {
+            "memberName": "UNICOMER\\admon_149",
+            "memberId": "S-1-5-21-1294218654-552819727-359541606-29724"
+          }
+        ],
+        "tablePermissions": [
+          {
+            "name": "Indicadores",
+            "filterExpression": "Indicadores[3.3 - Tienda] = \"149 - VALLE LA ESTRELLA #149\""
+          }
+        ]
+      },
+      {
+        "name": "Administracion_151",
+        "modelPermission": "read",
+        "members": [
+          {
+            "memberName": "UNICOMER\\admon_151",
+            "memberId": "S-1-5-21-1294218654-552819727-359541606-37511"
+          }
+        ],
+        "tablePermissions": [
+          {
+            "name": "Indicadores",
+            "filterExpression": "Indicadores[3.3 - Tienda] = \"151 - PARAISO #2\""
+          }
+        ]
+      },
+      {
+        "name": "Administracion_152",
+        "modelPermission": "read",
+        "members": [
+          {
+            "memberName": "UNICOMER\\admon_152",
+            "memberId": "S-1-5-21-1294218654-552819727-359541606-31347"
+          }
+        ],
+        "tablePermissions": [
+          {
+            "name": "Indicadores",
+            "filterExpression": "Indicadores[3.3 - Tienda] = \"152 - SIQUIRRES\""
+          }
+        ]
+      },
+      {
+        "name": "Administracion_153",
+        "modelPermission": "read",
+        "members": [
+          {
+            "memberName": "UNICOMER\\admon_153",
+            "memberId": "S-1-5-21-1294218654-552819727-359541606-31525"
+          }
+        ],
+        "tablePermissions": [
+          {
+            "name": "Indicadores",
+            "filterExpression": "Indicadores[3.3 - Tienda] = \"153 - HEREDIA PASEO LAS FLORES\""
+          }
+        ]
+      },
+      {
+        "name": "Administracion_154",
+        "modelPermission": "read",
+        "members": [
+          {
+            "memberName": "UNICOMER\\admon_154",
+            "memberId": "S-1-5-21-1294218654-552819727-359541606-32003"
+          }
+        ],
+        "tablePermissions": [
+          {
+            "name": "Indicadores",
+            "filterExpression": "Indicadores[3.3 - Tienda] = \"154 - ALAJUELA CITY MALL\""
+          }
+        ]
+      },
+      {
+        "name": "Administracion_155",
+        "modelPermission": "read",
+        "members": [
+          {
+            "memberName": "UNICOMER\\admon_155",
+            "memberId": "S-1-5-21-1294218654-552819727-359541606-50534"
+          }
+        ],
+        "tablePermissions": [
+          {
+            "name": "Indicadores",
+            "filterExpression": "Indicadores[3.3 - Tienda] = \"155 - NANDAYURE\""
+          }
+        ]
+      },
+      {
+        "name": "Administracion_156",
+        "modelPermission": "read",
+        "members": [
+          {
+            "memberName": "UNICOMER\\admon_156",
+            "memberId": "S-1-5-21-1294218654-552819727-359541606-31098"
+          }
+        ],
+        "tablePermissions": [
+          {
+            "name": "Indicadores",
+            "filterExpression": "Indicadores[3.3 - Tienda] = \"156 - SAN JOSE AVENIDA 4\""
+          }
+        ]
+      },
+      {
+        "name": "Administracion_159",
+        "modelPermission": "read",
+        "members": [
+          {
+            "memberName": "UNICOMER\\admon_159",
+            "memberId": "S-1-5-21-1294218654-552819727-359541606-51063"
+          }
+        ],
+        "tablePermissions": [
+          {
+            "name": "Indicadores",
+            "filterExpression": "Indicadores[3.3 - Tienda] = \"159 - CARTAGO CENTRO\""
+          }
+        ]
+      },
+      {
+        "name": "Administracion_160",
+        "modelPermission": "read",
+        "members": [
+          {
+            "memberName": "UNICOMER\\admon_160",
+            "memberId": "S-1-5-21-1294218654-552819727-359541606-59985"
+          }
+        ],
+        "tablePermissions": [
+          {
+            "name": "Indicadores",
+            "filterExpression": "Indicadores[3.3 - Tienda] = \"160 - GOLLO OXIGENO\""
+          }
+        ]
+      },
+      {
+        "name": "Administracion_161",
+        "modelPermission": "read",
+        "members": [
+          {
+            "memberName": "UNICOMER\\admon_161",
+            "memberId": "S-1-5-21-1294218654-552819727-359541606-61827"
+          }
+        ],
+        "tablePermissions": [
+          {
+            "name": "Indicadores",
+            "filterExpression": "Indicadores[3.3 - Tienda] = \"161 - GOLLO ESCAZU MP\""
+          }
+        ]
+      },
+      {
+        "name": "Administracion_162",
+        "modelPermission": "read",
+        "members": [
+          {
+            "memberName": "UNICOMER\\admon_162",
+            "memberId": "S-1-5-21-1294218654-552819727-359541606-59928"
+          }
+        ],
+        "tablePermissions": [
+          {
+            "name": "Indicadores",
+            "filterExpression": "Indicadores[3.3 - Tienda] = \"162 - GOLLO SUPER DESPENSA\""
+          }
+        ]
+      },
+      {
+        "name": "Administracion_163",
+        "modelPermission": "read",
+        "members": [
+          {
+            "memberName": "UNICOMER\\admon_163",
+            "memberId": "S-1-5-21-1294218654-552819727-359541606-61799"
+          }
+        ],
+        "tablePermissions": [
+          {
+            "name": "Indicadores",
+            "filterExpression": "Indicadores[3.3 - Tienda] = \"163 - SAN JOSE AVENIDA CENTRAL #163\""
+          }
+        ]
+      },
+      {
+        "name": "Administracion_301",
+        "modelPermission": "read",
+        "members": [
+          {
+            "memberName": "UNICOMER\\admon_301",
+            "memberId": "S-1-5-21-1294218654-552819727-359541606-23362"
+          }
+        ],
+        "tablePermissions": [
+          {
+            "name": "Indicadores",
+            "filterExpression": "Indicadores[3.3 - Tienda] = \"301 - UVITA\""
+          }
+        ]
+      },
+      {
+        "name": "Administracion_302",
+        "modelPermission": "read",
+        "members": [
+          {
+            "memberName": "UNICOMER\\admon_302",
+            "memberId": "S-1-5-21-1294218654-552819727-359541606-23367"
+          }
+        ],
+        "tablePermissions": [
+          {
+            "name": "Indicadores",
+            "filterExpression": "Indicadores[3.3 - Tienda] = \"302 - FILADELFIA\""
+          }
+        ]
+      },
+      {
+        "name": "Administracion_303",
+        "modelPermission": "read",
+        "members": [
+          {
+            "memberName": "UNICOMER\\admon_303",
+            "memberId": "S-1-5-21-1294218654-552819727-359541606-23370"
+          }
+        ],
+        "tablePermissions": [
+          {
+            "name": "Indicadores",
+            "filterExpression": "Indicadores[3.3 - Tienda] = \"303 - NOSARA\""
+          }
+        ]
+      },
+      {
+        "name": "Administracion_304",
+        "modelPermission": "read",
+        "members": [
+          {
+            "memberName": "UNICOMER\\admon_304",
+            "memberId": "S-1-5-21-1294218654-552819727-359541606-23378"
+          }
+        ],
+        "tablePermissions": [
+          {
+            "name": "Indicadores",
+            "filterExpression": "Indicadores[3.3 - Tienda] = \"304 - BAGACES\""
+          }
+        ]
+      },
+      {
+        "name": "Administracion_305",
+        "modelPermission": "read",
+        "members": [
+          {
+            "memberName": "UNICOMER\\admon_305",
+            "memberId": "S-1-5-21-1294218654-552819727-359541606-23384"
+          }
+        ],
+        "tablePermissions": [
+          {
+            "name": "Indicadores",
+            "filterExpression": "Indicadores[3.3 - Tienda] = \"305 - TEJAR-GUARCO\""
+          }
+        ]
+      },
+      {
+        "name": "Administracion_306",
+        "modelPermission": "read",
+        "members": [
+          {
+            "memberName": "UNICOMER\\admon_306",
+            "memberId": "S-1-5-21-1294218654-552819727-359541606-23388"
+          }
+        ],
+        "tablePermissions": [
+          {
+            "name": "Indicadores",
+            "filterExpression": "Indicadores[3.3 - Tienda] = \"306 - UPALA\""
+          }
+        ]
+      },
+      {
+        "name": "Administracion_307",
+        "modelPermission": "read",
+        "members": [
+          {
+            "memberName": "UNICOMER\\admon_307",
+            "memberId": "S-1-5-21-1294218654-552819727-359541606-23394"
+          }
+        ],
+        "tablePermissions": [
+          {
+            "name": "Indicadores",
+            "filterExpression": "Indicadores[3.3 - Tienda] = \"307 - VENECIA\""
+          }
+        ]
+      },
+      {
+        "name": "Administracion_308",
+        "modelPermission": "read",
+        "members": [
+          {
+            "memberName": "UNICOMER\\admon_308",
+            "memberId": "S-1-5-21-1294218654-552819727-359541606-23400"
+          }
+        ],
+        "tablePermissions": [
+          {
+            "name": "Indicadores",
+            "filterExpression": "Indicadores[3.3 - Tienda] = \"308 - GUATUSO\""
+          }
+        ]
+      },
+      {
+        "name": "Administracion_309",
+        "modelPermission": "read",
+        "members": [
+          {
+            "memberName": "UNICOMER\\admon_309",
+            "memberId": "S-1-5-21-1294218654-552819727-359541606-23674"
+          }
+        ],
+        "tablePermissions": [
+          {
+            "name": "Indicadores",
+            "filterExpression": "Indicadores[3.3 - Tienda] = \"309 - LAS JUNTAS\""
+          }
+        ]
+      },
+      {
+        "name": "Administracion_310",
+        "modelPermission": "read",
+        "members": [
+          {
+            "memberName": "UNICOMER\\admon_310",
+            "memberId": "S-1-5-21-1294218654-552819727-359541606-23485"
+          }
+        ],
+        "tablePermissions": [
+          {
+            "name": "Indicadores",
+            "filterExpression": "Indicadores[3.3 - Tienda] = \"310 - CARTAGO 4\""
+          }
+        ]
+      },
+      {
+        "name": "Administracion_311",
+        "modelPermission": "read",
+        "members": [
+          {
+            "memberName": "UNICOMER\\admon_311",
+            "memberId": "S-1-5-21-1294218654-552819727-359541606-22314"
+          }
+        ],
+        "tablePermissions": [
+          {
+            "name": "Indicadores",
+            "filterExpression": "Indicadores[3.3 - Tienda] = \"311 - SAN VITO\""
+          }
+        ]
+      },
+      {
+        "name": "Administracion_312",
+        "modelPermission": "read",
+        "members": [
+          {
+            "memberName": "UNICOMER\\admon_312",
+            "memberId": "S-1-5-21-1294218654-552819727-359541606-24434"
+          }
+        ],
+        "tablePermissions": [
+          {
+            "name": "Indicadores",
+            "filterExpression": "Indicadores[3.3 - Tienda] = \"312 - PALMAR NORTE\""
+          }
+        ]
+      },
+      {
+        "name": "Administracion_313",
+        "modelPermission": "read",
+        "members": [
+          {
+            "memberName": "UNICOMER\\admon_313",
+            "memberId": "S-1-5-21-1294218654-552819727-359541606-24436"
+          }
+        ],
+        "tablePermissions": [
+          {
+            "name": "Indicadores",
+            "filterExpression": "Indicadores[3.3 - Tienda] = \"313 - TURRUCARES ALAJUELA\""
+          }
+        ]
+      },
+      {
+        "name": "Administracion_314",
+        "modelPermission": "read",
+        "members": [
+          {
+            "memberName": "UNICOMER\\admon_314",
+            "memberId": "S-1-5-21-1294218654-552819727-359541606-24440"
+          }
+        ],
+        "tablePermissions": [
+          {
+            "name": "Indicadores",
+            "filterExpression": "Indicadores[3.3 - Tienda] = \"314 - MONTE VERDE - PUNTARENAS\""
+          }
+        ]
+      },
+      {
+        "name": "Administracion_315",
+        "modelPermission": "read",
+        "members": [
+          {
+            "memberName": "UNICOMER\\admon_315",
+            "memberId": "S-1-5-21-1294218654-552819727-359541606-49851"
+          }
+        ],
+        "tablePermissions": [
+          {
+            "name": "Indicadores",
+            "filterExpression": "Indicadores[3.3 - Tienda] = \"315 - MALL MONTE GENERAL\""
+          }
+        ]
+      },
+      {
+        "name": "Administracion_316",
+        "modelPermission": "read",
+        "members": [
+          {
+            "memberName": "UNICOMER\\admon_316",
+            "memberId": "S-1-5-21-1294218654-552819727-359541606-49852"
+          }
+        ],
+        "tablePermissions": [
+          {
+            "name": "Indicadores",
+            "filterExpression": "Indicadores[3.3 - Tienda] = \"316 - PUERTO JIMENEZ\""
+          }
+        ]
+      },
+      {
+        "name": "Administracion_317",
+        "modelPermission": "read",
+        "members": [
+          {
+            "memberName": "UNICOMER\\admon_317",
+            "memberId": "S-1-5-21-1294218654-552819727-359541606-49853"
+          }
+        ],
+        "tablePermissions": [
+          {
+            "name": "Indicadores",
+            "filterExpression": "Indicadores[3.3 - Tienda] = \"317 - BOCA ARENAL\""
+          }
+        ]
+      },
+      {
+        "name": "Administracion_318",
+        "modelPermission": "read",
+        "members": [
+          {
+            "memberName": "UNICOMER\\admon_318",
+            "memberId": "S-1-5-21-1294218654-552819727-359541606-55416"
+          }
+        ],
+        "tablePermissions": [
+          {
+            "name": "Indicadores",
+            "filterExpression": "Indicadores[3.3 - Tienda] = \"318 - LA GUACIMA\""
+          }
+        ]
+      },
+      {
+        "name": "Administracion_319",
+        "modelPermission": "read",
+        "members": [
+          {
+            "memberName": "UNICOMER\\admon_319",
+            "memberId": "S-1-5-21-1294218654-552819727-359541606-55417"
+          }
+        ],
+        "tablePermissions": [
+          {
+            "name": "Indicadores",
+            "filterExpression": "Indicadores[3.3 - Tienda] = \"319 - JUAN VIÑAS\""
+          }
+        ]
+      },
+      {
+        "name": "Administracion_320",
+        "modelPermission": "read",
+        "members": [
+          {
+            "memberName": "UNICOMER\\admon_320",
+            "memberId": "S-1-5-21-1294218654-552819727-359541606-55418"
+          }
+        ],
+        "tablePermissions": [
+          {
+            "name": "Indicadores",
+            "filterExpression": "Indicadores[3.3 - Tienda] = \"320 - MATINA\""
+          }
+        ]
+      },
+      {
+        "name": "Administracion_321",
+        "modelPermission": "read",
+        "members": [
+          {
+            "memberName": "UNICOMER\\admon_321",
+            "memberId": "S-1-5-21-1294218654-552819727-359541606-55419"
+          }
+        ],
+        "tablePermissions": [
+          {
+            "name": "Indicadores",
+            "filterExpression": "Indicadores[3.3 - Tienda] = \"321 - SANTA TERESA\""
+          }
+        ]
+      },
+      {
+        "name": "Administracion_322",
+        "modelPermission": "read",
+        "members": [
+          {
+            "memberName": "UNICOMER\\admon_322",
+            "memberId": "S-1-5-21-1294218654-552819727-359541606-55420"
+          }
+        ],
+        "tablePermissions": [
+          {
+            "name": "Indicadores",
+            "filterExpression": "Indicadores[3.3 - Tienda] = \"322 - PACAYAS\""
+          }
+        ]
+      },
+      {
+        "name": "Administracion_323",
+        "modelPermission": "read",
+        "members": [
+          {
+            "memberName": "UNICOMER\\admon_323",
+            "memberId": "S-1-5-21-1294218654-552819727-359541606-55421"
+          }
+        ],
+        "tablePermissions": [
+          {
+            "name": "Indicadores",
+            "filterExpression": "Indicadores[3.3 - Tienda] = \"323 - GOLFITO\""
+          }
+        ]
+      },
+      {
+        "name": "Administracion_324",
+        "modelPermission": "read",
+        "members": [
+          {
+            "memberName": "UNICOMER\\admon_324",
+            "memberId": "S-1-5-21-1294218654-552819727-359541606-55422"
+          }
+        ],
+        "tablePermissions": [
+          {
+            "name": "Indicadores",
+            "filterExpression": "Indicadores[3.3 - Tienda] = \"324 - NEILY\""
+          }
+        ]
+      },
+      {
+        "name": "Administracion_325",
+        "modelPermission": "read",
+        "members": [
+          {
+            "memberName": "UNICOMER\\admon_325",
+            "memberId": "S-1-5-21-1294218654-552819727-359541606-55423"
+          }
+        ],
+        "tablePermissions": [
+          {
+            "name": "Indicadores",
+            "filterExpression": "Indicadores[3.3 - Tienda] = \"325 - CERVANTES\""
+          }
+        ]
+      },
+      {
+        "name": "Administracion_326",
+        "modelPermission": "read",
+        "members": [
+          {
+            "memberName": "UNICOMER\\admon_326",
+            "memberId": "S-1-5-21-1294218654-552819727-359541606-55424"
+          }
+        ],
+        "tablePermissions": [
+          {
+            "name": "Indicadores",
+            "filterExpression": "Indicadores[3.3 - Tienda] = \"326 - GUACIMO #2\""
+          }
+        ]
+      },
+      {
+        "name": "Administracion_327",
+        "modelPermission": "read",
+        "members": [
+          {
+            "memberName": "UNICOMER\\admon_327",
+            "memberId": "S-1-5-21-1294218654-552819727-359541606-55425"
+          }
+        ],
+        "tablePermissions": [
+          {
+            "name": "Indicadores",
+            "filterExpression": "Indicadores[3.3 - Tienda] = \"327 - LA SUIZA\""
+          }
+        ]
+      },
+      {
+        "name": "Administracion_328",
+        "modelPermission": "read",
+        "members": [
+          {
+            "memberName": "UNICOMER\\admon_328",
+            "memberId": "S-1-5-21-1294218654-552819727-359541606-55426"
+          }
+        ],
+        "tablePermissions": [
+          {
+            "name": "Indicadores",
+            "filterExpression": "Indicadores[3.3 - Tienda] = \"328 - SAN MIGUEL\""
+          }
+        ]
+      },
+      {
+        "name": "Administracion_329",
+        "modelPermission": "read",
+        "members": [
+          {
+            "memberName": "UNICOMER\\admon_329",
+            "memberId": "S-1-5-21-1294218654-552819727-359541606-55427"
+          }
+        ],
+        "tablePermissions": [
+          {
+            "name": "Indicadores",
+            "filterExpression": "Indicadores[3.3 - Tienda] = \"329 - ACOSTA #2\""
+          }
+        ]
+      },
+      {
+        "name": "Administracion_330",
+        "modelPermission": "read",
+        "members": [
+          {
+            "memberName": "UNICOMER\\admon_330",
+            "memberId": "S-1-5-21-1294218654-552819727-359541606-55428"
+          }
+        ],
+        "tablePermissions": [
+          {
+            "name": "Indicadores",
+            "filterExpression": "Indicadores[3.3 - Tienda] = \"330 - FRAILES\""
+          }
+        ]
+      },
+      {
+        "name": "Administracion_331",
+        "modelPermission": "read",
+        "members": [
+          {
+            "memberName": "UNICOMER\\admon_331",
+            "memberId": "S-1-5-21-1294218654-552819727-359541606-57459"
+          }
+        ],
+        "tablePermissions": [
+          {
+            "name": "Indicadores",
+            "filterExpression": "Indicadores[3.3 - Tienda] = \"331 - HOJANCHA\""
+          }
+        ]
+      },
+      {
+        "name": "Administracion_332",
+        "modelPermission": "read",
+        "members": [
+          {
+            "memberName": "UNICOMER\\admon_332",
+            "memberId": "S-1-5-21-1294218654-552819727-359541606-55429"
+          }
+        ],
+        "tablePermissions": [
+          {
+            "name": "Indicadores",
+            "filterExpression": "Indicadores[3.3 - Tienda] = \"332 - CHACHAGUA\""
+          }
+        ]
+      },
+      {
+        "name": "Administracion_333",
+        "modelPermission": "read",
+        "members": [
+          {
+            "memberName": "UNICOMER\\admon_333",
+            "memberId": "S-1-5-21-1294218654-552819727-359541606-63585"
+          }
+        ],
+        "tablePermissions": [
+          {
+            "name": "Indicadores",
+            "filterExpression": "Indicadores[3.3 - Tienda] = \"333 - GOLLO POCORA\""
+          }
+        ]
+      },
+      {
+        "name": "Administracion_335",
+        "modelPermission": "read",
+        "members": [
+          {
+            "memberName": "UNICOMER\\admon_335",
+            "memberId": "S-1-5-21-1294218654-552819727-359541606-62655"
+          }
+        ],
+        "tablePermissions": [
+          {
+            "name": "Indicadores",
+            "filterExpression": "Indicadores[3.3 - Tienda] = \"335 - GOLLO HUACAS\""
+          }
+        ]
+      },
+      {
+        "name": "Administracion_336",
+        "modelPermission": "read",
+        "members": [
+          {
+            "memberName": "UNICOMER\\admon_336",
+            "memberId": "S-1-5-21-1294218654-552819727-359541606-64564"
+          }
+        ],
+        "tablePermissions": [
+          {
+            "name": "Indicadores",
+            "filterExpression": "Indicadores[3.3 - Tienda] = \"336 - GOLLO QUEBRADA\""
+          }
+        ]
+      },
+      {
+        "name": "Administracion_337",
+        "modelPermission": "read",
+        "members": [
+          {
+            "memberName": "UNICOMER\\admon_337",
+            "memberId": "S-1-5-21-1294218654-552819727-359541606-63488"
+          }
+        ],
+        "tablePermissions": [
+          {
+            "name": "Indicadores",
+            "filterExpression": "Indicadores[3.3 - Tienda] = \"337 - GOLLO ROBLE ALAJUELA CERRADA\""
+          }
+        ]
+      },
+      {
+        "name": "Administracion_338",
+        "modelPermission": "read",
+        "members": [
+          {
+            "memberName": "UNICOMER\\admon_338",
+            "memberId": "S-1-5-21-1294218654-552819727-359541606-63707"
+          }
+        ],
+        "tablePermissions": [
+          {
+            "name": "Indicadores",
+            "filterExpression": "Indicadores[3.3 - Tienda] = \"338 - CAJON PEREZ ZELEDON\""
+          }
+        ]
+      },
+      {
+        "name": "Administracion_340",
+        "modelPermission": "read",
+        "members": [
+          {
+            "memberName": "UNICOMER\\admon_340",
+            "memberId": "S-1-5-21-1294218654-552819727-359541606-63082"
+          }
+        ],
+        "tablePermissions": [
+          {
+            "name": "Indicadores",
+            "filterExpression": "Indicadores[3.3 - Tienda] = \"340 - GOLLO COYOL\""
+          }
+        ]
+      },
+      {
+        "name": "Administracion_401",
+        "modelPermission": "read",
+        "members": [
+          {
+            "memberName": "UNICOMER\\admon_401",
+            "memberId": "S-1-5-21-1294218654-552819727-359541606-37175"
+          }
+        ],
+        "tablePermissions": [
+          {
+            "name": "Indicadores",
+            "filterExpression": "Indicadores[3.3 - Tienda] = \"401 - GOLLO MOTORS ALAJUELA\""
+          }
+        ]
+      },
+      {
+        "name": "Administracion_501",
+        "modelPermission": "read",
+        "members": [
+          {
+            "memberName": "UNICOMER\\admon_501",
+            "memberId": "S-1-5-21-1294218654-552819727-359541606-23711"
+          }
+        ],
+        "tablePermissions": [
+          {
+            "name": "Indicadores",
+            "filterExpression": "Indicadores[3.3 - Tienda] = \"501 - LA CURACAO - CAÑAS\""
+          }
+        ]
+      },
+      {
+        "name": "Administracion_512",
+        "modelPermission": "read",
+        "members": [
+          {
+            "memberName": "UNICOMER\\admon_512",
+            "memberId": "S-1-5-21-1294218654-552819727-359541606-28789"
+          }
+        ],
+        "tablePermissions": [
+          {
+            "name": "Indicadores",
+            "filterExpression": "Indicadores[3.3 - Tienda] = \"512 - LA CURACAO SAN RAMON\""
+          }
+        ]
+      },
+      {
+        "name": "Administracion_513",
+        "modelPermission": "read",
+        "members": [
+          {
+            "memberName": "UNICOMER\\jtda_alajuela",
+            "memberId": "S-1-5-21-1294218654-552819727-359541606-3664"
+          }
+        ],
+        "tablePermissions": [
+          {
+            "name": "Indicadores",
+            "filterExpression": "Indicadores[3.3 - Tienda] = \"513 - LA CURACAO ALAJUELA\""
+          }
+        ]
+      },
+      {
+        "name": "Administracion_515",
+        "modelPermission": "read",
+        "tablePermissions": [
+          {
+            "name": "Indicadores",
+            "filterExpression": "Indicadores[3.3 - Tienda] = \"515 - LA CURACAO DESAMPARADOS\""
+          }
+        ]
+      },
+      {
+        "name": "Administracion_517",
+        "modelPermission": "read",
+        "members": [
+          {
+            "memberName": "UNICOMER\\jtda_nicoya",
+            "memberId": "S-1-5-21-1294218654-552819727-359541606-5085"
+          }
+        ],
+        "tablePermissions": [
+          {
+            "name": "Indicadores",
+            "filterExpression": "Indicadores[3.3 - Tienda] = \"517 - LA CURACAO NICOYA\""
+          }
+        ]
+      },
+      {
+        "name": "Administracion_518",
+        "modelPermission": "read",
+        "members": [
+          {
+            "memberName": "UNICOMER\\admon_518",
+            "memberId": "S-1-5-21-1294218654-552819727-359541606-81086"
+          }
+        ],
+        "tablePermissions": [
+          {
+            "name": "Indicadores",
+            "filterExpression": "Indicadores[3.3 - Tienda] = \"518 - LA CURACAO HEREDIA\""
+          }
+        ]
+      },
+      {
+        "name": "Administracion_520",
+        "modelPermission": "read",
+        "members": [
+          {
+            "memberName": "UNICOMER\\jtda_liberia",
+            "memberId": "S-1-5-21-1294218654-552819727-359541606-3560"
+          }
+        ],
+        "tablePermissions": [
+          {
+            "name": "Indicadores",
+            "filterExpression": "Indicadores[3.3 - Tienda] = \"520 - LA CURACAO LIBERIA\""
+          }
+        ]
+      },
+      {
+        "name": "Administracion_522",
+        "modelPermission": "read",
+        "members": [
+          {
+            "memberName": "UNICOMER\\jtda_coronado",
+            "memberId": "S-1-5-21-1294218654-552819727-359541606-4401"
+          }
+        ],
+        "tablePermissions": [
+          {
+            "name": "Indicadores",
+            "filterExpression": "Indicadores[3.3 - Tienda] = \"522 - LA CURACAO CORONADO\""
+          }
+        ]
+      },
+      {
+        "name": "Administracion_525",
+        "modelPermission": "read",
+        "members": [
+          {
+            "memberName": "UNICOMER\\jtda_alajuela2",
+            "memberId": "S-1-5-21-1294218654-552819727-359541606-5088"
+          }
+        ],
+        "tablePermissions": [
+          {
+            "name": "Indicadores",
+            "filterExpression": "Indicadores[3.3 - Tienda] = \"525 - LA CUARACAO ALAJUELA 2\""
+          }
+        ]
+      },
+      {
+        "name": "Administracion_529",
+        "modelPermission": "read",
+        "members": [
+          {
+            "memberName": "UNICOMER\\admon_529",
+            "memberId": "S-1-5-21-1294218654-552819727-359541606-24447"
+          }
+        ],
+        "tablePermissions": [
+          {
+            "name": "Indicadores",
+            "filterExpression": "Indicadores[3.3 - Tienda] = \"529 - CURACAO-PUNTARENAS #529\""
+          }
+        ]
+      },
+      {
+        "name": "Administracion_530",
+        "modelPermission": "read",
+        "members": [
+          {
+            "memberName": "UNICOMER\\admon_530",
+            "memberId": "S-1-5-21-1294218654-552819727-359541606-24456"
+          }
+        ],
+        "tablePermissions": [
+          {
+            "name": "Indicadores",
+            "filterExpression": "Indicadores[3.3 - Tienda] = \"530 - CURACAO-GRECIA #530\""
+          }
+        ]
+      },
+      {
+        "name": "Administracion_532",
+        "modelPermission": "read",
+        "members": [
+          {
+            "memberName": "UNICOMER\\admon_532",
+            "memberId": "S-1-5-21-1294218654-552819727-359541606-26459"
+          }
+        ],
+        "tablePermissions": [
+          {
+            "name": "Indicadores",
+            "filterExpression": "Indicadores[3.3 - Tienda] = \"532 - LA CURACAO SANTA CRUZ\""
+          }
+        ]
+      },
+      {
+        "name": "Administracion_533",
+        "modelPermission": "read",
+        "members": [
+          {
+            "memberName": "UNICOMER\\admon_533",
+            "memberId": "S-1-5-21-1294218654-552819727-359541606-26464"
+          }
+        ],
+        "tablePermissions": [
+          {
+            "name": "Indicadores",
+            "filterExpression": "Indicadores[3.3 - Tienda] = \"533 - LA CURACAO TILARAN #533\""
+          }
+        ]
+      },
+      {
+        "name": "Administracion_534",
+        "modelPermission": "read",
+        "members": [
+          {
+            "memberName": "UNICOMER\\admon_534",
+            "memberId": "S-1-5-21-1294218654-552819727-359541606-27165"
+          }
+        ],
+        "tablePermissions": [
+          {
+            "name": "Indicadores",
+            "filterExpression": "Indicadores[3.3 - Tienda] = \"534 - CURACAO QUEPOS #534\""
+          }
+        ]
+      },
+      {
+        "name": "Administracion_536",
+        "modelPermission": "read",
+        "members": [
+          {
+            "memberName": "UNICOMER\\admon_536",
+            "memberId": "S-1-5-21-1294218654-552819727-359541606-30167"
+          }
+        ],
+        "tablePermissions": [
+          {
+            "name": "Indicadores",
+            "filterExpression": "Indicadores[3.3 - Tienda] = \"536 - LA CURACAO PEREZ ZELEDON #536\""
+          }
+        ]
+      },
+      {
+        "name": "Administracion_537",
+        "modelPermission": "read",
+        "members": [
+          {
+            "memberName": "UNICOMER\\admon_537",
+            "memberId": "S-1-5-21-1294218654-552819727-359541606-28721"
+          }
+        ],
+        "tablePermissions": [
+          {
+            "name": "Indicadores",
+            "filterExpression": "Indicadores[3.3 - Tienda] = \"537 - LA CURACAO EL ROBLE #537\""
+          }
+        ]
+      },
+      {
+        "name": "JZ_Esteban_Calvo",
+        "modelPermission": "read",
+        "members": [
+          {
+            "memberName": "UNICOMER\\esteban_rodriguez",
+            "memberId": "S-1-5-21-1294218654-552819727-359541606-81159"
+          }
+        ],
+        "tablePermissions": [
+          {
+            "name": "Indicadores",
+            "filterExpression": "Indicadores[4.1 - Jefe Zona] = \"ESTEBAN CALVO\""
+          }
+        ]
+      },
+      {
+        "name": "UnidadBI",
+        "description": "Integrantes de la Unidad de BI, esto a modo de supervisión y mantenimiento del cubo",
+        "modelPermission": "read",
+        "members": [
+          {
+            "memberName": "UNICOMER\\mauricio_montoya",
+            "memberId": "S-1-5-21-1294218654-552819727-359541606-83504"
+          },
+          {
+            "memberName": "UNICOMER\\luisc_rodriguez",
+            "memberId": "S-1-5-21-1294218654-552819727-359541606-33225"
+          },
+          {
+            "memberName": "UNICOMER\\edelman_viquez",
+            "memberId": "S-1-5-21-1294218654-552819727-359541606-90186"
+          },
+          {
+            "memberName": "UNICOMER\\alexander_bermudez",
+            "memberId": "S-1-5-21-1294218654-552819727-359541606-49782"
+          }
+        ]
+      },
+      {
+        "name": "Control Interno",
+        "modelPermission": "read",
+        "members": [
+          {
+            "memberName": "UNICOMER\\carlos_barrantes",
+            "memberId": "S-1-5-21-1294218654-552819727-359541606-62987"
+          },
+          {
+            "memberName": "UNICOMER\\allan_elizondo",
+            "memberId": "S-1-5-21-1294218654-552819727-359541606-43701"
+          }
+        ]
+      },
+      {
+        "name": "Administracion_541",
+        "modelPermission": "read",
+        "members": [
+          {
+            "memberName": "UNICOMER\\admon_541",
+            "memberId": "S-1-5-21-1294218654-552819727-359541606-80540"
+          }
+        ],
+        "tablePermissions": [
+          {
+            "name": "Indicadores",
+            "filterExpression": "Indicadores[3.3 - Tienda] = \"541 - CURACAO CIUDAD QUESADA\""
+          }
+        ]
+      },
+      {
+        "name": "Administracion_542",
+        "modelPermission": "read",
+        "members": [
+          {
+            "memberName": "UNICOMER\\admon_542",
+            "memberId": "S-1-5-21-1294218654-552819727-359541606-93957"
+          }
+        ],
+        "tablePermissions": [
+          {
+            "name": "Indicadores",
+            "filterExpression": "Indicadores[3.3 - Tienda] = \"542 - CURACAO TURRIALBA\""
+          }
+        ]
+      },
+      {
+        "name": "JZ_Argenis_Cordero",
+        "modelPermission": "read",
+        "members": [
+          {
+            "memberName": "UNICOMER\\argenis_cordero",
+            "memberId": "S-1-5-21-1294218654-552819727-359541606-37549"
+          }
+        ],
+        "tablePermissions": [
+          {
+            "name": "Indicadores",
+            "filterExpression": "Indicadores[4.1 - Jefe Zona] = \"ARGENIS CORDERO\""
+          }
+        ]
+      },
+      {
+        "name": "JZ_Arleth_Oreamuno",
+        "modelPermission": "read",
+        "members": [
+          {
+            "memberName": "UNICOMER\\arleth_oreamuno",
+            "memberId": "S-1-5-21-1294218654-552819727-359541606-57982"
+          }
+        ],
+        "tablePermissions": [
+          {
+            "name": "Indicadores",
+            "filterExpression": "Indicadores[4.1 - Jefe Zona] = \"ARLETH OREAMUNO\""
+          }
+        ]
+      },
+      {
+        "name": "Financiero",
+        "modelPermission": "read",
+        "members": [
+          {
+            "memberName": "UNICOMER\\esteban_montero",
+            "memberId": "S-1-5-21-1294218654-552819727-359541606-37330"
+          }
+        ]
+      },
+      {
+        "name": "Ventas",
+        "modelPermission": "read",
+        "members": [
+          {
+            "memberName": "UNICOMER\\lisandro_loaiza",
+            "memberId": "S-1-5-21-1294218654-552819727-359541606-22152"
+          }
+        ]
+      },
+      {
+        "name": "Administracion_342",
+        "modelPermission": "read",
+        "members": [
+          {
+            "memberName": "UNICOMER\\admon_342",
+            "memberId": "S-1-5-21-1294218654-552819727-359541606-80570"
+          }
+        ]
+      },
+      {
+        "name": "Opticas",
+        "modelPermission": "read",
+        "members": [
+          {
+            "memberName": "UNICOMER\\juanc_fonseca",
+            "memberId": "S-1-5-21-1294218654-552819727-359541606-94060"
+          },
+          {
+            "memberName": "UNICOMER\\shirley_lopez",
+            "memberId": "S-1-5-21-1294218654-552819727-359541606-58781"
+          }
+        ]
+      },
+      {
+        "name": "Solo PDV 014",
+        "modelPermission": "read",
+        "members": [
+          {
+            "memberName": "UNICOMER\\jorge_camacho",
+            "memberId": "S-1-5-21-1294218654-552819727-359541606-80278"
+          }
+        ],
+        "tablePermissions": [
+          {
+            "name": "Indicadores",
+            "filterExpression": "Indicadores[3.3 - Tienda] = \"014 - ALM.EL GALLO\""
+          }
+        ]
+      },
+      {
+        "name": "JZ_Jorge Armando",
+        "modelPermission": "read",
+        "members": [
+          {
+            "memberName": "UNICOMER\\jorge_solano",
+            "memberId": "S-1-5-21-1294218654-552819727-359541606-39112"
+          }
+        ],
+        "tablePermissions": [
+          {
+            "name": "Indicadores",
+            "filterExpression": "Indicadores[4.1 - Jefe Zona] = \"JORGE SOLANO\""
+          }
+        ]
+      },
+      {
+        "name": "Crédito",
+        "modelPermission": "read",
+        "members": [
+          {
+            "memberName": "UNICOMER\\yorleny_alvarez",
+            "memberId": "S-1-5-21-1294218654-552819727-359541606-40134"
+          }
+        ]
+      },
+      {
+        "name": "Compras",
+        "modelPermission": "read",
+        "members": [
+          {
+            "memberName": "UNICOMER\\valeria_venegas",
+            "memberId": "S-1-5-21-1294218654-552819727-359541606-62835"
+          },
+          {
+            "memberName": "UNICOMER\\irene_alpizar",
+            "memberId": "S-1-5-21-1294218654-552819727-359541606-90303"
+          },
+          {
+            "memberName": "UNICOMER\\pablo_espinoza",
+            "memberId": "S-1-5-21-1294218654-552819727-359541606-94100"
+          },
+          {
+            "memberName": "UNICOMER\\randall_morales",
+            "memberId": "S-1-5-21-1294218654-552819727-359541606-20887"
+          },
+          {
+            "memberName": "UNICOMER\\daniela_trombatore",
+            "memberId": "S-1-5-21-1294218654-552819727-359541606-101166"
+          },
+          {
+            "memberName": "UNICOMER\\federico_aguilar",
+            "memberId": "S-1-5-21-1294218654-552819727-359541606-104992"
+          },
+          {
+            "memberName": "UNICOMER\\ricardo_duran",
+            "memberId": "S-1-5-21-1294218654-552819727-359541606-104991"
+          }
+        ]
+      },
+      {
+        "name": "Auditoria",
+        "modelPermission": "read",
+        "members": [
+          {
+            "memberName": "UNICOMER\\nuria_rodriguez",
+            "memberId": "S-1-5-21-1294218654-552819727-359541606-3767"
+          },
+          {
+            "memberName": "UNICOMER\\raul_orellana",
+            "memberId": "S-1-5-21-1294218654-552819727-359541606-104906"
+          },
+          {
+            "memberName": "UNICOMER\\jorge_monge",
+            "memberId": "S-1-5-21-1294218654-552819727-359541606-104111"
+          },
+          {
+            "memberName": "UNICOMER\\martin_fernandez",
+            "memberId": "S-1-5-21-1294218654-552819727-359541606-104125"
+          },
+          {
+            "memberName": "UNICOMER\\priscila_aguilar",
+            "memberId": "S-1-5-21-1294218654-552819727-359541606-30110"
+          }
+        ]
+      }
+    ],
+    "annotations": [
+      {
+        "name": "ClientCompatibilityLevel",
+        "value": "400"
+      }
+    ]
+  },
+  "id": "SemanticModel"
+}
